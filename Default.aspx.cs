@@ -30,7 +30,32 @@ namespace MyIPSW
 
                 string name = jsonObj[i]["name"].ToString();
                 string identifier = jsonObj[i]["identifier"].ToString();
-                ddliPhone.Items.Add(new ListItem(name,identifier));
+                if (identifier.Contains("iPhone"))
+                {
+                    ddliPhone.Items.Add(new ListItem(name, identifier));
+                }
+                else if (identifier.Contains("iPad"))
+                {
+                    ddliPad.Items.Add(new ListItem(name, identifier));
+                }
+                else if (identifier.Contains("Watch"))
+                {
+                    ddlWatch.Items.Add(new ListItem(name, identifier));
+                }
+                else if (identifier.Contains("AudioAccessory")) //HomePod
+                {
+                    ddlAudioAccessory.Items.Add(new ListItem(name, identifier));
+                }
+                else if (identifier.Contains("iPod"))
+                {
+                    ddliPod.Items.Add(new ListItem(name, identifier));
+                }
+                else if (identifier.Contains("AppleTV"))
+                {
+                    ddlAppleTV.Items.Add(new ListItem(name, identifier));
+                }
+
+                
             }
             
         }
