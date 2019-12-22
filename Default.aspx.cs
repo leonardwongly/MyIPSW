@@ -30,7 +30,7 @@ namespace MyIPSW
 
                 string name = jsonObj[i]["name"].ToString();
                 string identifier = jsonObj[i]["identifier"].ToString();
-                ddliPhone.Items.Add(new ListItem(name));
+                ddliPhone.Items.Add(new ListItem(name,identifier));
             }
             
         }

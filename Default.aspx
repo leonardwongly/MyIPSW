@@ -4,5 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Label ID="lblName" runat="server"></asp:Label>
     <br/>
-    <asp:DropDownList ID="ddliPhone" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="ddliPhone" runat="server">
+        <asp:ListItem Text="Select iPhone Model" Selected="True"></asp:ListItem>
+    </asp:DropDownList>
 </asp:Content>
