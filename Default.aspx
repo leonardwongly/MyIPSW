@@ -10,7 +10,7 @@
                 <h4>Step 1</h4>
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPhone" runat="server">
+                    <asp:DropDownList ID="ddliPhone" runat="server" OnSelectedIndexChanged="ddliPhone_SelectedIndexChanged" AutoPostBack="True">
                         <asp:ListItem Text="Select iPhone Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -53,7 +53,14 @@
             </div>
 
             <div class="col-sm" style="margin-top: 30px;">
-                <h4>Step 2</h4>
+                <h4><asp:Label ID="lblStep2" runat="server" Text="Step 2"></asp:Label></h4>
+                <br />
+                <asp:Label ID="lblSelectionComment" runat="server"></asp:Label>
+                <br />
+                <asp:Label ID="lblSelection" runat="server"></asp:Label>
+                <br />
+                <br />
+                <asp:Button ID="btnRetrieve" runat="server" />
             </div>
 
         </div>

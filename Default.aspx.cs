@@ -20,6 +20,8 @@ namespace MyIPSW
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnRetrieve.Visible = false;
+            lblStep2.Visible = false;
 
             WebClient webClient = new WebClient();
             string myJSON = webClient.DownloadString("https://api.ipsw.me/v4/devices");
@@ -58,6 +60,20 @@ namespace MyIPSW
                 
             }
             
+        }
+
+        protected void ddliPhone_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblSelection.Text = ddliPhone.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + ddliPhone.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep2.Visible = true;
+            lblStep2.Font.Bold = true;
         }
     }
 }
