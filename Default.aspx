@@ -8,6 +8,21 @@
         <div class="row">
             <div class="col-sm" style="margin-top: 30px">
                 <h4>Step 1</h4>
+                <div class="row">
+                    <asp:RadioButtonList ID="rblOptions" runat="server" AutoPostBack="True" OnSelectedIndexChanged="rblOptions_SelectedIndexChanged">
+                        <asp:ListItem>Official</asp:ListItem>
+                        <asp:ListItem>OTA</asp:ListItem>
+                    </asp:RadioButtonList>
+                </div>
+                <br />
+                
+
+            </div>
+
+            <div class="col-sm" style="margin-top:30px;">
+                <h4>
+                    <asp:Label ID="lblStep2" runat="server" Text="Step 2"></asp:Label>
+                </h4>
                 <br />
                 <div class="row">
                     <asp:DropDownList ID="ddliPhone" runat="server" OnSelectedIndexChanged="ddliPhone_SelectedIndexChanged" AutoPostBack="True">
@@ -19,6 +34,13 @@
                 <div class="row">
                     <asp:DropDownList ID="ddliPad" runat="server">
                         <asp:ListItem Text="Select iPad Model" Selected="True"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+
+                 <br />
+                <div class="row">
+                    <asp:DropDownList ID="ddliPod" runat="server">
+                        <asp:ListItem Text="Select iPod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
@@ -35,25 +57,17 @@
                         <asp:ListItem Text="Select HomePod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-
-                <br />
-                <div class="row">
-                    <asp:DropDownList ID="ddliPod" runat="server">
-                        <asp:ListItem Text="Select iPod Model" Selected="True"></asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-
                 <br />
                 <div class="row">
                     <asp:DropDownList ID="ddlAppleTV" runat="server">
                         <asp:ListItem Text="Select Apple TV Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-
             </div>
 
             <div class="col-sm" style="margin-top: 30px;">
-                <h4><asp:Label ID="lblStep2" runat="server" Text="Step 2"></asp:Label></h4>
+                <h4>
+                    <asp:Label ID="lblStep3" runat="server" Text="Step 3"></asp:Label></h4>
                 <br />
                 <asp:Label ID="lblSelectionComment" runat="server"></asp:Label>
                 <br />

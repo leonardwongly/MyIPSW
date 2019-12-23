@@ -22,6 +22,13 @@ namespace MyIPSW
         {
             btnRetrieve.Visible = false;
             lblStep2.Visible = false;
+            lblStep3.Visible = false;
+            ddliPhone.Visible = false;
+            ddliPad.Visible = false;
+            ddliPod.Visible = false;
+            ddlWatch.Visible = false;
+            ddlAppleTV.Visible = false;
+            ddlAudioAccessory.Visible = false;
 
             WebClient webClient = new WebClient();
             string myJSON = webClient.DownloadString("https://api.ipsw.me/v4/devices");
@@ -68,12 +75,57 @@ namespace MyIPSW
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
 
-            lblSelectionComment.Text = "You have selected <b>" + ddliPhone.SelectedItem.ToString() + "</b> with the identifier: ";
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddliPhone.SelectedItem.ToString() + "</b> with the identifier: ";
             btnRetrieve.Text = "Retrieve";
             btnRetrieve.Visible = true;
 
-            lblStep2.Visible = true;
-            lblStep2.Font.Bold = true;
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+        }
+
+        protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
         }
     }
 }

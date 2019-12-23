@@ -15,6 +15,24 @@ namespace MyIPSW
     {
 
         /// <summary>
+        /// rblOptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblOptions;
+
+        /// <summary>
+        /// lblStep2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStep2;
+
+        /// <summary>
         /// ddliPhone control.
         /// </summary>
         /// <remarks>
@@ -31,6 +49,15 @@ namespace MyIPSW
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddliPad;
+
+        /// <summary>
+        /// ddliPod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddliPod;
 
         /// <summary>
         /// ddlWatch control.
@@ -51,15 +78,6 @@ namespace MyIPSW
         protected global::System.Web.UI.WebControls.DropDownList ddlAudioAccessory;
 
         /// <summary>
-        /// ddliPod control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddliPod;
-
-        /// <summary>
         /// ddlAppleTV control.
         /// </summary>
         /// <remarks>
@@ -69,13 +87,13 @@ namespace MyIPSW
         protected global::System.Web.UI.WebControls.DropDownList ddlAppleTV;
 
         /// <summary>
-        /// lblStep2 control.
+        /// lblStep3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStep2;
+        protected global::System.Web.UI.WebControls.Label lblStep3;
 
         /// <summary>
         /// lblSelectionComment control.

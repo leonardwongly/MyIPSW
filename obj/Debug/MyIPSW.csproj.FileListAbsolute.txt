@@ -88,7 +88,7 @@ C:\Users\LeonardWong\source\repos\MyIPSW\bin\System.Text.Json.xml
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\System.ValueTuple.xml
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSW.csprojAssemblyReference.cache
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSW.csproj.CopyComplete
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSW.dll
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSW.pdb
+C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSW.csprojAssemblyReference.cache
