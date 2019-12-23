@@ -30,39 +30,44 @@ namespace MyIPSW
             ddlAppleTV.Visible = false;
             ddlAudioAccessory.Visible = false;
 
-            WebClient webClient = new WebClient();
-            string myJSON = webClient.DownloadString("https://api.ipsw.me/v4/devices");
-
-            dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
-            for (int i = 0; i < jsonObj.Count; i++)
+            if (!IsPostBack)
             {
+                WebClient webClient = new WebClient();
+                string myJSON = webClient.DownloadString("https://api.ipsw.me/v4/devices");
 
-                string name = jsonObj[i]["name"].ToString();
-                string identifier = jsonObj[i]["identifier"].ToString();
-                if (identifier.Contains("iPhone"))
+                dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
+                for (int i = 0; i < jsonObj.Count; i++)
                 {
-                    ddliPhone.Items.Add(new ListItem(name, identifier));
+
+                    string name = jsonObj[i]["name"].ToString();
+                    string identifier = jsonObj[i]["identifier"].ToString();
+                    if (identifier.Contains("iPhone"))
+                    {
+                        ddliPhone.Items.Add(new ListItem(name, identifier));
+                    }
+                    else if (identifier.Contains("iPad"))
+                    {
+                        ddliPad.Items.Add(new ListItem(name, identifier));
+                    }
+                    else if (identifier.Contains("Watch"))
+                    {
+                        ddlWatch.Items.Add(new ListItem(name, identifier));
+                    }
+                    else if (identifier.Contains("AudioAccessory")) //HomePod
+                    {
+                        ddlAudioAccessory.Items.Add(new ListItem(name, identifier));
+                    }
+                    else if (identifier.Contains("iPod"))
+                    {
+                        ddliPod.Items.Add(new ListItem(name, identifier));
+                    }
+                    else if (identifier.Contains("AppleTV"))
+                    {
+                        ddlAppleTV.Items.Add(new ListItem(name, identifier));
+                    }
                 }
-                else if (identifier.Contains("iPad"))
-                {
-                    ddliPad.Items.Add(new ListItem(name, identifier));
-                }
-                else if (identifier.Contains("Watch"))
-                {
-                    ddlWatch.Items.Add(new ListItem(name, identifier));
-                }
-                else if (identifier.Contains("AudioAccessory")) //HomePod
-                {
-                    ddlAudioAccessory.Items.Add(new ListItem(name, identifier));
-                }
-                else if (identifier.Contains("iPod"))
-                {
-                    ddliPod.Items.Add(new ListItem(name, identifier));
-                }
-                else if (identifier.Contains("AppleTV"))
-                {
-                    ddlAppleTV.Items.Add(new ListItem(name, identifier));
-                }
+
+            
 
                 
             }
@@ -102,6 +107,12 @@ namespace MyIPSW
                 ddlAppleTV.Visible = true;
                 ddlAudioAccessory.Visible = true;
             }
+
+            ddliPad.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
         }
 
         protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,6 +137,222 @@ namespace MyIPSW
                 ddlAppleTV.Visible = true;
                 ddlAudioAccessory.Visible = true;
             }
+        }
+
+        protected void ddliPad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddliPhone.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
+
+            lblSelection.Text = ddliPad.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddliPad.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+
+            
+        }
+
+        protected void ddliPod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddliPhone.SelectedIndex = 0;
+            ddliPad.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
+
+            lblSelection.Text = ddliPod.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddliPod.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+
+            
+
+        }
+
+        protected void ddlWatch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddliPhone.SelectedIndex = 0;
+            ddliPad.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
+
+            lblSelection.Text = ddlWatch.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddlWatch.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+
+        }
+
+        protected void ddlAudioAccessory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ddliPhone.SelectedIndex = 0;
+            ddliPad.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+
+            lblSelection.Text = ddlAudioAccessory.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddlAudioAccessory.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+
+            
+        }
+
+        protected void ddlAppleTV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddliPhone.SelectedIndex = 0;
+            ddliPad.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
+
+            lblSelection.Text = ddlAppleTV.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddlAppleTV.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlAudioAccessory.Visible = true;
+            }
+
+            
         }
     }
 }

@@ -32,34 +32,34 @@
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPad" runat="server">
+                    <asp:DropDownList ID="ddliPad" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPad_SelectedIndexChanged">
                         <asp:ListItem Text="Select iPad Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                  <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPod" runat="server">
+                    <asp:DropDownList ID="ddliPod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPod_SelectedIndexChanged">
                         <asp:ListItem Text="Select iPod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlWatch" runat="server">
-                        <asp:ListItem Text="Select Watch Model" Selected="True"></asp:ListItem>
+                    <asp:DropDownList ID="ddlWatch" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlWatch_SelectedIndexChanged">
+                        <asp:ListItem Text="Select Apple Watch Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlAudioAccessory" runat="server">
+                    <asp:DropDownList ID="ddlAudioAccessory" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAudioAccessory_SelectedIndexChanged">
                         <asp:ListItem Text="Select HomePod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlAppleTV" runat="server">
+                    <asp:DropDownList ID="ddlAppleTV" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAppleTV_SelectedIndexChanged">
                         <asp:ListItem Text="Select Apple TV Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
