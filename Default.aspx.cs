@@ -354,5 +354,30 @@ namespace MyIPSW
 
             
         }
+
+        protected void btnRetrieve_Click(object sender, EventArgs e)
+        {
+            string identifier = lblSelection.Text;
+            string firmwareType = rblOptions.SelectedItem.ToString();
+            string myJSON = "";
+
+            WebClient webClient = new WebClient();
+            if (firmwareType.Equals("Official")) {
+                myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw");
+            } 
+            else if (firmwareType.Equals("OTA"))
+            {
+                myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
+            }
+            
+
+            dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
+            for (int i = 0; i < jsonObj.Count; i++)
+            {
+               // string name = jsonObj[i]["name"].ToString();
+               // string identifier = jsonObj[i]["identifier"].ToString();
+            }
+
+        }
     }
 }

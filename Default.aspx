@@ -74,7 +74,7 @@
                 <asp:Label ID="lblSelection" runat="server"></asp:Label>
                 <br />
                 <br />
-                <asp:Button ID="btnRetrieve" runat="server" />
+                <asp:Button ID="btnRetrieve" runat="server" OnClick="btnRetrieve_Click" />
             </div>
 
         </div>
