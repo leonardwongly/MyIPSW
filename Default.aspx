@@ -78,6 +78,16 @@
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col-sm">
+                
+                <asp:Table ID="tblData" runat="server">
+                </asp:Table>
+                
+            </div>
+        </div>
+
     </div>
     <br />
 

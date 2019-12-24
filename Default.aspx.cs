@@ -67,11 +67,11 @@ namespace MyIPSW
                     }
                 }
 
-            
 
-                
+
+
             }
-            
+
         }
 
         protected void ddliPhone_SelectedIndexChanged(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace MyIPSW
                 ddlAudioAccessory.Visible = true;
             }
 
-            
+
         }
 
         protected void ddliPod_SelectedIndexChanged(object sender, EventArgs e)
@@ -222,7 +222,7 @@ namespace MyIPSW
                 ddlAudioAccessory.Visible = true;
             }
 
-            
+
 
         }
 
@@ -309,7 +309,7 @@ namespace MyIPSW
                 ddlAudioAccessory.Visible = true;
             }
 
-            
+
         }
 
         protected void ddlAppleTV_SelectedIndexChanged(object sender, EventArgs e)
@@ -352,7 +352,7 @@ namespace MyIPSW
                 ddlAudioAccessory.Visible = true;
             }
 
-            
+
         }
 
         protected void btnRetrieve_Click(object sender, EventArgs e)
@@ -362,22 +362,52 @@ namespace MyIPSW
             string myJSON = "";
 
             WebClient webClient = new WebClient();
-            if (firmwareType.Equals("Official")) {
+            if (firmwareType.Equals("Official"))
+            {
                 myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw");
-            } 
+            }
             else if (firmwareType.Equals("OTA"))
             {
                 myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
             }
-            
+
 
             dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
-            for (int i = 0; i < jsonObj.Count; i++)
-            {
-               // string name = jsonObj[i]["name"].ToString();
-               // string identifier = jsonObj[i]["identifier"].ToString();
-            }
+            TableHeaderRow thr = new TableHeaderRow();
+            TableHeaderCell headerTableCell1 = new TableHeaderCell();
+            TableHeaderCell headerTableCell2 = new TableHeaderCell();
+            headerTableCell1.Text = "Build ID";
+            headerTableCell2.Text = "Links";
+            thr.Cells.Add(headerTableCell1);
+            thr.Cells.Add(headerTableCell2);
 
+            tblData.Rows.AddAt(0, thr);
+            for (int i = 0; i < jsonObj["firmwares"].Count; i++)
+            {
+                string buildid = jsonObj["firmwares"][i]["buildid"].ToString();
+                string url = jsonObj["firmwares"][i]["url"].ToString();
+
+                HyperLink hyp = new HyperLink();
+                HyperLink hypText = new HyperLink();
+
+                hyp.ID = "hypABD" + i;
+                hyp.NavigateUrl = url;
+                hyp.Text = "Download<br/>";
+
+                hypText.ID = "hypText" + i;
+                hypText.Text = buildid + "<br/>";
+
+                tblData.BorderStyle = BorderStyle.Solid;
+                
+                TableRow tr = new TableRow();
+                TableCell tdID = new TableCell();
+                TableCell tdLinks = new TableCell();
+                tdID.Controls.Add(hypText);
+                tdLinks.Controls.Add(hyp);
+                tr.Cells.Add(tdID);
+                tr.Cells.Add(tdLinks);
+                tblData.Rows.Add(tr);
+            }
         }
     }
 }
