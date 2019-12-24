@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container">
+    <div class="container" style="background-color:#f5f5f5">
         <div class="row">
             <div class="col-sm" style="margin-top: 30px">
                 <h4>Step 1</h4>
@@ -82,7 +82,7 @@
         <div class="row">
             <div class="col-sm">
                 
-                <asp:Table ID="tblData" runat="server">
+                <asp:Table ID="tblData" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" CellSpacing="3" GridLines="Both" class="table table-dark" style="width:100%;text-align:center;">
                 </asp:Table>
                 
             </div>
