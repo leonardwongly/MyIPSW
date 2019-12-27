@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyIPSW")]
+[assembly: AssemblyTitle("MyIPSWMinimal")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyIPSW")]
+[assembly: AssemblyProduct("MyIPSWMinimal")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("83938dcc-ccd7-410d-a56e-654097a085e0")]
+[assembly: Guid("23448f1e-1520-4499-ac91-bde440cf10d1")]
 
 // Version information for an assembly consists of the following four values:
 //

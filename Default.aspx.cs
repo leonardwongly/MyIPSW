@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
-using System.Data;
-using Newtonsoft.Json;
-using System.Web.Script;
-using System.Web.Script.Serialization;
-using System.IO;
-using System.Collections;
+using System.Web.UI.WebControls;
 
-namespace MyIPSW
+namespace MyIPSWMinimal
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -411,20 +400,20 @@ namespace MyIPSW
 
                 hypText.ID = "hypText" + i;
                 string[] links = url.Split('/');
-                int linkInt = links.Length -1;
+                int linkInt = links.Length - 1;
                 hypText.Text = links[linkInt] + "<br/>";
 
                 hypDateReleased.ID = "hypDateReleased" + i;
                 hypDateReleased.Text = dateReleased;
 
                 tblData.BorderStyle = BorderStyle.Solid;
-                
+
                 TableRow tr = new TableRow();
                 TableCell tdName = new TableCell();
                 TableCell tdID = new TableCell();
                 TableCell tdLinks = new TableCell();
                 TableCell tdDateReleased = new TableCell();
-                
+
                 tdName.Controls.Add(hypName);
                 tdID.Controls.Add(hypText);
                 tdLinks.Controls.Add(hyp);
