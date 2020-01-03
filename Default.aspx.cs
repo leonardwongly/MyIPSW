@@ -364,20 +364,16 @@ namespace MyIPSWMinimal
             dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
             TableHeaderRow thr = new TableHeaderRow();
             TableHeaderCell headerTableCell0 = new TableHeaderCell();
-            TableHeaderCell headerTableCell1 = new TableHeaderCell();
             TableHeaderCell headerTableCell2 = new TableHeaderCell();
             TableHeaderCell headerTableCell3 = new TableHeaderCell();
 
             headerTableCell0.Text = "Build ID";
-            headerTableCell1.Text = "File Name";
             headerTableCell2.Text = "Links";
             headerTableCell3.Text = "Release Date & Time";
 
             thr.Cells.Add(headerTableCell0);
-            thr.Cells.Add(headerTableCell1);
             thr.Cells.Add(headerTableCell2);
             thr.Cells.Add(headerTableCell3);
-
             tblData.Rows.AddAt(0, thr);
             for (int i = 0; i < jsonObj["firmwares"].Count; i++)
             {
@@ -388,7 +384,6 @@ namespace MyIPSWMinimal
 
                 HyperLink hypName = new HyperLink();
                 HyperLink hyp = new HyperLink();
-                HyperLink hypText = new HyperLink();
                 HyperLink hypDateReleased = new HyperLink();
 
                 hypName.ID = "hypName" + i;
@@ -396,33 +391,27 @@ namespace MyIPSWMinimal
 
                 hyp.ID = "hypABD" + i;
                 hyp.NavigateUrl = url;
-                hyp.Text = "Download<br/>";
 
-                hypText.ID = "hypText" + i;
                 string[] links = url.Split('/');
                 int linkInt = links.Length - 1;
-                hypText.Text = links[linkInt] + "<br/>";
+                hyp.Text = links[linkInt] + "<br/>";
 
                 hypDateReleased.ID = "hypDateReleased" + i;
-                hypDateReleased.Text = dateReleased;
+                hypDateReleased.Text = dateReleased.ToString();
 
                 tblData.BorderStyle = BorderStyle.Solid;
 
                 TableRow tr = new TableRow();
                 TableCell tdName = new TableCell();
-                TableCell tdID = new TableCell();
                 TableCell tdLinks = new TableCell();
                 TableCell tdDateReleased = new TableCell();
 
                 tdName.Controls.Add(hypName);
-                tdID.Controls.Add(hypText);
                 tdLinks.Controls.Add(hyp);
                 tdDateReleased.Controls.Add(hypDateReleased);
 
                 tr.Cells.Add(tdName);
-                tr.Cells.Add(tdID);
                 tr.Cells.Add(tdLinks); ;
-
                 tr.Cells.Add(tdDateReleased);
                 tblData.Rows.Add(tr);
             }
