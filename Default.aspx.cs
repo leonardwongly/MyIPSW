@@ -9,18 +9,22 @@ namespace MyIPSWMinimal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnRetrieve.Visible = false;
-            lblStep2.Visible = false;
-            lblStep3.Visible = false;
-            ddliPhone.Visible = false;
-            ddliPad.Visible = false;
-            ddliPod.Visible = false;
-            ddlWatch.Visible = false;
-            ddlAppleTV.Visible = false;
-            ddlAudioAccessory.Visible = false;
+            
 
             if (!IsPostBack)
             {
+
+                btnRetrieve.Visible = false;
+                lblStep2.Visible = false;
+                lblStep3.Visible = false;
+                ddliPhone.Visible = false;
+                ddliPad.Visible = false;
+                ddliPod.Visible = false;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlAudioAccessory.Visible = false;
+
+
                 WebClient webClient = new WebClient();
                 string myJSON = webClient.DownloadString("https://api.ipsw.me/v4/devices");
 
@@ -397,7 +401,16 @@ namespace MyIPSWMinimal
                 hyp.Text = links[linkInt] + "<br/>";
 
                 hypDateReleased.ID = "hypDateReleased" + i;
-                hypDateReleased.Text = dateReleased.ToString();
+                if (!dateReleased.Equals(""))
+                {
+                    DateTime dr = Convert.ToDateTime(dateReleased);
+                    hypDateReleased.Text = dr.ToLongDateString().ToString() + " " + dr.ToLongTimeString().ToString();
+                }
+                else
+                {
+                    hypDateReleased.Text = "-";
+                }
+                
 
                 tblData.BorderStyle = BorderStyle.Solid;
 

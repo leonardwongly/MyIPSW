@@ -14,31 +14,29 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <style>
-    </style>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">MyIPSW</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" href="Default.aspx" style="color:white;">MyIPSW</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="Default.aspx">Firmware</a>
+        <a class="nav-link" href="Default.aspx" style="color:white;">Home</a>
       </li>
     </ul>
   </div>
 </nav>
-<body>
+<body style="background-color:#f5f5f5">
     <form id="form1" runat="server">
-        <div class="container" style="background-color:#f5f5f5">
+        <div class="container">
         <div class="row">
             <div class="col-sm" style="margin-top: 30px">
                 <h4>Step 1</h4>
                 <div class="row">
-                    <asp:RadioButtonList ID="rblOptions" runat="server" AutoPostBack="True" OnSelectedIndexChanged="rblOptions_SelectedIndexChanged">
+                    <asp:RadioButtonList ID="rblOptions" runat="server" AutoPostBack="True" OnSelectedIndexChanged="rblOptions_SelectedIndexChanged" CssClass="form-check">
                         <asp:ListItem>Official</asp:ListItem>
                         <asp:ListItem>OTA</asp:ListItem>
                     </asp:RadioButtonList>
@@ -54,41 +52,41 @@
                 </h4>
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPhone" runat="server" OnSelectedIndexChanged="ddliPhone_SelectedIndexChanged" AutoPostBack="True">
+                    <asp:DropDownList ID="ddliPhone" runat="server" OnSelectedIndexChanged="ddliPhone_SelectedIndexChanged" AutoPostBack="True" CssClass="form-control">
                         <asp:ListItem Text="Select iPhone Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPad" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPad_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddliPad" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPad_SelectedIndexChanged" CssClass="form-control">
                         <asp:ListItem Text="Select iPad Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                  <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddliPod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPod_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddliPod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddliPod_SelectedIndexChanged" CssClass="form-control">
                         <asp:ListItem Text="Select iPod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlWatch" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlWatch_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlWatch" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlWatch_SelectedIndexChanged" CssClass="form-control">
                         <asp:ListItem Text="Select Apple Watch Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlAudioAccessory" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAudioAccessory_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlAudioAccessory" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAudioAccessory_SelectedIndexChanged" CssClass="form-control">
                         <asp:ListItem Text="Select HomePod Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <br />
                 <div class="row">
-                    <asp:DropDownList ID="ddlAppleTV" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAppleTV_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlAppleTV" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAppleTV_SelectedIndexChanged" CssClass="form-control">
                         <asp:ListItem Text="Select Apple TV Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -103,14 +101,13 @@
                 <asp:Label ID="lblSelection" runat="server"></asp:Label>
                 <br />
                 <br />
-                <asp:Button ID="btnRetrieve" runat="server" OnClick="btnRetrieve_Click" />
+                <asp:Button ID="btnRetrieve" runat="server" OnClick="btnRetrieve_Click" class="btn btn-primary" />
             </div>
 
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top:30px;">
             <div class="col-sm">
-                
                 <asp:Table ID="tblData" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" CellSpacing="3" GridLines="Both" class="table table-dark" style="width:100%;text-align:center;">
                 </asp:Table>
                 
