@@ -39,6 +39,7 @@
                     <asp:RadioButtonList ID="rblOptions" runat="server" AutoPostBack="True" OnSelectedIndexChanged="rblOptions_SelectedIndexChanged" CssClass="form-check">
                         <asp:ListItem>Official</asp:ListItem>
                         <asp:ListItem>OTA</asp:ListItem>
+                        <asp:ListItem>Version</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
                 <br />
@@ -50,6 +51,12 @@
                 <h4>
                     <asp:Label ID="lblStep2" runat="server" Text="Step 2"></asp:Label>
                 </h4>
+                <br />
+                <div class="row">
+                    <asp:DropDownList ID="ddlVersion" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlVersion_SelectedIndexChanged" CssClass="form-control">
+                        <asp:ListItem Text="Select Version" Selected="True"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
                 <br />
                 <div class="row">
                     <asp:DropDownList ID="ddliPhone" runat="server" OnSelectedIndexChanged="ddliPhone_SelectedIndexChanged" AutoPostBack="True" CssClass="form-control">
@@ -90,6 +97,7 @@
                         <asp:ListItem Text="Select Apple TV Model" Selected="True"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
+                <br />
             </div>
 
             <div class="col-sm" style="margin-top: 30px;">
