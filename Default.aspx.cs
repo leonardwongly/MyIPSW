@@ -11,19 +11,6 @@ namespace MyIPSWMinimal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Url.Scheme.Equals("http"))
-            {
-                if ((Request.Browser.Type.Contains("Safari")) || (Request.Browser.Type.Contains("InternetExplorer")))
-                {
-                    string url = Request.Url.AbsoluteUri.Substring(7, Request.Url.AbsoluteUri.Length - 12);
-                    Response.Redirect("https://" + url);
-                }
-                else
-                {
-                    string url = Request.Url.AbsoluteUri.Substring(6, Request.Url.AbsoluteUri.Length - 11);
-                    Response.Redirect("https://" + url);
-                }
-            }
 
             if (!IsPostBack)
             {
