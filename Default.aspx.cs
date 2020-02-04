@@ -65,7 +65,7 @@ namespace MyIPSWMinimal
                 string[] iOSVersion = new string[] { "1.0", "1.0.1", "1.0.2", "1.1", "1.1.1", "1.1.2", "1.1.3", "1.1.4", "1.1.5",
                                                         "2.0", "2.0.1", "2.0.2", "2.1", "2.1.1", "2.2", "2.2.1",
                                                         "3.0", "3.0.1", "3.1", "3.1.1", "3.1.2", "3.1.3", "3.2", "3.2.1", "3.2.2",
-                                                        "4.0", "4.0.1", "4.0.2", "4.1", "4.2.1", "4.2.5", "4.2.6", "4.2.7", "4.2.8", "4.2.9", "4.2.10", "4.3", "4.3.1", "4.3.2", "4.3.3", "4.3.4", "4.3.5",
+                                                        "4.0", "4.0.1", "4.0.2", "4.1", "4.2.1", "4.2.6", "4.2.7", "4.2.8", "4.2.9", "4.2.10", "4.3", "4.3.1", "4.3.2", "4.3.3", "4.3.4", "4.3.5",
                                                         "5.0", "5.0.1", "5.1", "5.1.1",
                                                         "6.0", "6.0.1", "6.0.2", "6.1", "6.1.1", "6.1.2", "6.1.3", "6.1.4", "6.1.5", "6.1.6",
                                                         "7.0", "7.0.1", "7.0.2", "7.0.3", "7.0.4", "7.0.5", "7.0.6", "7.1", "7.1.1", "7.1.2",
@@ -507,17 +507,21 @@ namespace MyIPSWMinimal
 
 
                 dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
+                
                 TableHeaderRow thr = new TableHeaderRow();
                 TableHeaderCell headerTableCell0 = new TableHeaderCell();
                 TableHeaderCell headerTableCell2 = new TableHeaderCell();
                 TableHeaderCell headerTableCell3 = new TableHeaderCell();
+                TableHeaderCell headerTableCell4 = new TableHeaderCell();
 
                 headerTableCell0.Text = "Build ID";
                 headerTableCell2.Text = "Links";
                 headerTableCell3.Text = "Release Date & Time";
+                headerTableCell4.Text = "File Size";
 
                 thr.Cells.Add(headerTableCell0);
                 thr.Cells.Add(headerTableCell2);
+                thr.Cells.Add(headerTableCell4);
                 thr.Cells.Add(headerTableCell3);
                 tblData.Rows.AddAt(0, thr);
                 for (int i = 0; i < jsonObj["firmwares"].Count; i++)
@@ -525,17 +529,24 @@ namespace MyIPSWMinimal
                     string buildid = jsonObj["firmwares"][i]["buildid"].ToString();
                     string url = jsonObj["firmwares"][i]["url"].ToString();
                     string dateReleased = jsonObj["firmwares"][i]["releasedate"].ToString();
+                    string fileSize = jsonObj["firmwares"][i]["filesize"].ToString();
 
 
                     HyperLink hypName = new HyperLink();
                     HyperLink hyp = new HyperLink();
                     HyperLink hypDateReleased = new HyperLink();
+                    HyperLink hypFileSize = new HyperLink();
 
                     hypName.ID = "hypName" + i;
                     hypName.Text = buildid + "<br/>";
 
                     hyp.ID = "hypABD" + i;
                     hyp.NavigateUrl = url;
+
+                    hypFileSize.ID = "hypFileSize" + i;
+                    double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
+                    hypFileSize.Text = fileSizeGB.ToString("0.##") + " GB";
+                    
 
                     string[] links = url.Split('/');
                     int linkInt = links.Length - 1;
@@ -558,14 +569,17 @@ namespace MyIPSWMinimal
                     TableRow tr = new TableRow();
                     TableCell tdName = new TableCell();
                     TableCell tdLinks = new TableCell();
+                    TableCell tdHyperFileSize = new TableCell();
                     TableCell tdDateReleased = new TableCell();
 
                     tdName.Controls.Add(hypName);
                     tdLinks.Controls.Add(hyp);
+                    tdHyperFileSize.Controls.Add(hypFileSize);
                     tdDateReleased.Controls.Add(hypDateReleased);
 
                     tr.Cells.Add(tdName);
                     tr.Cells.Add(tdLinks); ;
+                    tr.Cells.Add(tdHyperFileSize);
                     tr.Cells.Add(tdDateReleased);
                     tblData.Rows.Add(tr);
                 }
