@@ -114,7 +114,6 @@ C:\Users\LeonardWong\source\repos\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetC
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\Newtonsoft.Json.dll
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\Newtonsoft.Json.xml
 C:\Users\LeonardWong\source\repos\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csprojAssemblyReference.cache
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csproj.CoreCompileInputs.cache
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csproj.CopyComplete
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.dll
