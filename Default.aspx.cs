@@ -467,6 +467,7 @@ namespace MyIPSWMinimal
                 thrVersion.Cells.Add(tableHeaderFileSize);
                 thrVersion.Cells.Add(tableHeaderReleasedDate);
                 tblData.Rows.AddAt(0, thrVersion);
+                lblSelectionComment.Text += "<br/>There are " + jsonVersionObj.Count + " Files";
 
                 for (int i = 0; i < jsonVersionObj.Count; i++)
                 {
@@ -561,6 +562,7 @@ namespace MyIPSWMinimal
                 thrVersionOTA.Cells.Add(tableHeaderFileSizeOTA);
                 thrVersionOTA.Cells.Add(tableHeaderReleasedDateOTA);
                 tblData.Rows.AddAt(0, thrVersionOTA);
+                lblSelectionComment.Text += "<br/>There are " + jsonVersionOTAObj.Count + " Files";
 
                 for (int i = 0; i < jsonVersionOTAObj.Count; i++)
                 {
@@ -664,6 +666,8 @@ namespace MyIPSWMinimal
                 thr.Cells.Add(headerTableCell4);
                 thr.Cells.Add(headerTableCell3);
                 tblData.Rows.AddAt(0, thr);
+                lblSelectionComment.Text += "<br/>There are " + jsonObj["firmwares"].Count + " Files";
+
                 for (int i = 0; i < jsonObj["firmwares"].Count; i++)
                 {
                     string buildid = jsonObj["firmwares"][i]["buildid"].ToString();
@@ -756,7 +760,7 @@ namespace MyIPSWMinimal
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
 
-            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersion.SelectedItem.ToString() + "</b>";
+            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersionOTA.SelectedItem.ToString();
             btnRetrieve.Text = "Retrieve";
             btnRetrieve.Visible = true;
 
