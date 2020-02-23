@@ -5,14 +5,14 @@ using System.Web.UI.WebControls;
 
 namespace MyIPSWMinimal
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Link : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
-
+                tbData.Visible = false;
+                tbData.Text = "";
                 btnRetrieve.Visible = false;
                 lblStep2.Visible = false;
                 lblStep3.Visible = false;
@@ -99,11 +99,12 @@ namespace MyIPSWMinimal
 
 
             }
-
         }
 
         protected void ddliPhone_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             lblSelection.Text = ddliPhone.SelectedValue.ToString();
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
@@ -149,6 +150,8 @@ namespace MyIPSWMinimal
 
         protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             if (rblOptions.SelectedItem.ToString().Equals("Official"))
             {
                 lblStep2.Visible = true;
@@ -202,6 +205,8 @@ namespace MyIPSWMinimal
 
         protected void ddliPad_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             ddliPhone.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
@@ -249,6 +254,8 @@ namespace MyIPSWMinimal
 
         protected void ddliPod_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             ddliPhone.SelectedIndex = 0;
             ddliPad.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
@@ -297,6 +304,8 @@ namespace MyIPSWMinimal
 
         protected void ddlWatch_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             ddliPhone.SelectedIndex = 0;
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
@@ -343,7 +352,8 @@ namespace MyIPSWMinimal
 
         protected void ddlAudioAccessory_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            tbData.Visible = false;
+            tbData.Text = "";
             ddliPhone.SelectedIndex = 0;
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
@@ -391,6 +401,8 @@ namespace MyIPSWMinimal
 
         protected void ddlAppleTV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             ddliPhone.SelectedIndex = 0;
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
@@ -446,91 +458,20 @@ namespace MyIPSWMinimal
                 WebClient webClientVersion = new WebClient();
                 versionJSON = webClientVersion.DownloadString("https://api.ipsw.me/v4/ipsw/" + version);
                 dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
-                TableHeaderRow thrVersion = new TableHeaderRow();
-                TableHeaderCell tableHeaderIdentifier = new TableHeaderCell();
-                TableHeaderCell tableHeaderBuildID = new TableHeaderCell();
-                TableHeaderCell tableHeaderURL = new TableHeaderCell();
-                TableHeaderCell tableHeaderFileSize = new TableHeaderCell();
-                TableHeaderCell tableHeaderReleasedDate = new TableHeaderCell();
-
-                tableHeaderIdentifier.Text = "Identifier";
-                tableHeaderBuildID.Text = "Build ID";
-                tableHeaderURL.Text = "Download Links";
-                tableHeaderFileSize.Text = "File Size";
-                tableHeaderReleasedDate.Text = "Released Date";
-
-                thrVersion.Cells.Add(tableHeaderIdentifier);
-                thrVersion.Cells.Add(tableHeaderBuildID);
-                thrVersion.Cells.Add(tableHeaderURL);
-                thrVersion.Cells.Add(tableHeaderFileSize);
-                thrVersion.Cells.Add(tableHeaderReleasedDate);
-                tblData.Rows.AddAt(0, thrVersion);
-                lblSelectionComment.Text += "<br/>There are " + jsonVersionObj.Count + " Files";
-
+                double fileSizeGB = 0.00;
+                double originalFileSize = 0.00;
                 for (int i = 0; i < jsonVersionObj.Count; i++)
                 {
-                    string identifier = jsonVersionObj[i]["identifier"];
-                    string buildID = jsonVersionObj[i]["buildid"];
                     string url = jsonVersionObj[i]["url"];
                     string fileSize = jsonVersionObj[i]["filesize"];
-                    string releaseDate = jsonVersionObj[i]["releasedate"];
 
-                    HyperLink hyperIdentifier = new HyperLink();
-                    HyperLink hyperBuildID = new HyperLink();
-                    HyperLink hyperURL = new HyperLink();
-                    HyperLink hyperFileSize = new HyperLink();
-                    HyperLink hyperReleaseDate = new HyperLink();
-
-                    hyperIdentifier.ID = "hypIdentifier" + i;
-                    hyperBuildID.ID = "hyperBuildID" + i;
-                    hyperURL.ID = "hyperURL" + i;
-                    hyperFileSize.ID = "hyperFileSize" + i;
-                    hyperReleaseDate.ID = "hyperReleaseDate" + i;
-
-
-                    hyperIdentifier.Text = identifier + "<br/>";
-                    hyperBuildID.Text = buildID + "<br/>";
-                    hyperURL.Text = url + "<br/>";
-                    double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                    hyperFileSize.Text = fileSizeGB.ToString("0.##") + " GB";
-                    if (!(releaseDate is null))
-                    {
-                        hyperReleaseDate.Text = releaseDate;
-                    }
-                    else
-                    {
-                        hyperReleaseDate.Text = "-";
-                    }
-
-
-                    hyperURL.NavigateUrl = url;
-
-                    string[] links = url.Split('/');
-                    int linkInt = links.Length - 1;
-                    hyperURL.Text = links[linkInt] + "<br/>";
-
-                    tblData.BorderStyle = BorderStyle.Solid;
-
-                    TableRow tr = new TableRow();
-                    TableCell tdIdentifier = new TableCell();
-                    TableCell tdBuildID = new TableCell();
-                    TableCell tdURL = new TableCell();
-                    TableCell tdFileSize = new TableCell();
-                    TableCell tdReleaseDate = new TableCell();
-
-                    tdIdentifier.Controls.Add(hyperIdentifier);
-                    tdBuildID.Controls.Add(hyperBuildID);
-                    tdURL.Controls.Add(hyperURL);
-                    tdFileSize.Controls.Add(hyperFileSize);
-                    tdReleaseDate.Controls.Add(hyperReleaseDate);
-
-                    tr.Cells.Add(tdIdentifier);
-                    tr.Cells.Add(tdBuildID);
-                    tr.Cells.Add(tdURL);
-                    tr.Cells.Add(tdFileSize);
-                    tr.Cells.Add(tdReleaseDate);
-                    tblData.Rows.Add(tr);
+                    tbData.Text += url + "<br/>";
+                    originalFileSize += Double.Parse(fileSize);
+                    
                 }
+                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
+                lblSelectionComment.Text = "<br/>There are " + jsonVersionObj.Count + 
+                                           " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
 
             else if (rblOptions.SelectedItem.Value.Equals("Version (OTA)"))
@@ -541,91 +482,19 @@ namespace MyIPSWMinimal
                 WebClient webClientVersionOTA = new WebClient();
                 versionOTAJSON = webClientVersionOTA.DownloadString("https://api.ipsw.me/v4/ota/" + versionOTA);
                 dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
-                TableHeaderRow thrVersionOTA = new TableHeaderRow();
-                TableHeaderCell tableHeaderIdentifierOTA = new TableHeaderCell();
-                TableHeaderCell tableHeaderBuildIDOTA = new TableHeaderCell();
-                TableHeaderCell tableHeaderURLOTA = new TableHeaderCell();
-                TableHeaderCell tableHeaderFileSizeOTA = new TableHeaderCell();
-                TableHeaderCell tableHeaderReleasedDateOTA = new TableHeaderCell();
-
-                tableHeaderIdentifierOTA.Text = "Identifier";
-                tableHeaderBuildIDOTA.Text = "Build ID";
-                tableHeaderURLOTA.Text = "Download Links";
-                tableHeaderFileSizeOTA.Text = "File Size";
-                tableHeaderReleasedDateOTA.Text = "Released Date";
-
-                thrVersionOTA.Cells.Add(tableHeaderIdentifierOTA);
-                thrVersionOTA.Cells.Add(tableHeaderBuildIDOTA);
-                thrVersionOTA.Cells.Add(tableHeaderURLOTA);
-                thrVersionOTA.Cells.Add(tableHeaderFileSizeOTA);
-                thrVersionOTA.Cells.Add(tableHeaderReleasedDateOTA);
-                tblData.Rows.AddAt(0, thrVersionOTA);
-                lblSelectionComment.Text += "<br/>There are " + jsonVersionOTAObj.Count + " Files";
-
+                double fileSizeGB = 0.00;
+                double originalFileSize = 0.00;
                 for (int i = 0; i < jsonVersionOTAObj.Count; i++)
                 {
-                    string identifier = jsonVersionOTAObj[i]["identifier"];
-                    string buildID = jsonVersionOTAObj[i]["buildid"];
                     string url = jsonVersionOTAObj[i]["url"];
                     string fileSize = jsonVersionOTAObj[i]["filesize"];
-                    string releaseDate = jsonVersionOTAObj[i]["releasedate"];
 
-                    HyperLink hyperIdentifierOTA = new HyperLink();
-                    HyperLink hyperBuildIDOTA = new HyperLink();
-                    HyperLink hyperURLOTA = new HyperLink();
-                    HyperLink hyperFileSizeOTA = new HyperLink();
-                    HyperLink hyperReleaseDateOTA = new HyperLink();
-
-                    hyperIdentifierOTA.ID = "hypIdentifier" + i;
-                    hyperBuildIDOTA.ID = "hyperBuildID" + i;
-                    hyperURLOTA.ID = "hyperURL" + i;
-                    hyperFileSizeOTA.ID = "hyperFileSize" + i;
-                    hyperReleaseDateOTA.ID = "hyperReleaseDate" + i;
-
-
-                    hyperIdentifierOTA.Text = identifier + "<br/>";
-                    hyperBuildIDOTA.Text = buildID + "<br/>";
-                    hyperURLOTA.Text = url + "<br/>";
-                    double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                    hyperFileSizeOTA.Text = fileSizeGB.ToString("0.##") + " GB";
-                    if (!(releaseDate is null))
-                    {
-                        hyperReleaseDateOTA.Text = releaseDate;
-                    }
-                    else
-                    {
-                        hyperReleaseDateOTA.Text = "-";
-                    }
-
-
-                    hyperURLOTA.NavigateUrl = url;
-
-                    string[] links = url.Split('/');
-                    int linkInt = links.Length - 1;
-                    hyperURLOTA.Text = links[linkInt] + "<br/>";
-
-                    tblData.BorderStyle = BorderStyle.Solid;
-
-                    TableRow tr = new TableRow();
-                    TableCell tdIdentifierOTA = new TableCell();
-                    TableCell tdBuildIDOTA = new TableCell();
-                    TableCell tdURLOTA = new TableCell();
-                    TableCell tdFileSizeOTA = new TableCell();
-                    TableCell tdReleaseDateOTA = new TableCell();
-
-                    tdIdentifierOTA.Controls.Add(hyperIdentifierOTA);
-                    tdBuildIDOTA.Controls.Add(hyperBuildIDOTA);
-                    tdURLOTA.Controls.Add(hyperURLOTA);
-                    tdFileSizeOTA.Controls.Add(hyperFileSizeOTA);
-                    tdReleaseDateOTA.Controls.Add(hyperReleaseDateOTA);
-
-                    tr.Cells.Add(tdIdentifierOTA);
-                    tr.Cells.Add(tdBuildIDOTA);
-                    tr.Cells.Add(tdURLOTA);
-                    tr.Cells.Add(tdFileSizeOTA);
-                    tr.Cells.Add(tdReleaseDateOTA);
-                    tblData.Rows.Add(tr);
+                    tbData.Text += url + "<br/>";
+                    originalFileSize += Double.Parse(fileSize);
                 }
+                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
+                lblSelectionComment.Text = "<br/>There are " + jsonVersionOTAObj.Count +
+                                           " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
 
             else
@@ -645,91 +514,28 @@ namespace MyIPSWMinimal
                     myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
                 }
 
-
                 dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
-
-                TableHeaderRow thr = new TableHeaderRow();
-                TableHeaderCell headerTableCell0 = new TableHeaderCell();
-                TableHeaderCell headerTableCell2 = new TableHeaderCell();
-                TableHeaderCell headerTableCell3 = new TableHeaderCell();
-                TableHeaderCell headerTableCell4 = new TableHeaderCell();
-
-                headerTableCell0.Text = "Build ID";
-                headerTableCell2.Text = "Links";
-                headerTableCell3.Text = "Release Date & Time";
-                headerTableCell4.Text = "File Size";
-
-                thr.Cells.Add(headerTableCell0);
-                thr.Cells.Add(headerTableCell2);
-                thr.Cells.Add(headerTableCell4);
-                thr.Cells.Add(headerTableCell3);
-                tblData.Rows.AddAt(0, thr);
-                lblSelectionComment.Text += "<br/>There are " + jsonObj["firmwares"].Count + " Files";
-
+                double fileSizeGB = 0.00;
+                double originalFileSize = 0.00;
                 for (int i = 0; i < jsonObj["firmwares"].Count; i++)
                 {
-                    string buildid = jsonObj["firmwares"][i]["buildid"].ToString();
                     string url = jsonObj["firmwares"][i]["url"].ToString();
-                    string dateReleased = jsonObj["firmwares"][i]["releasedate"].ToString();
                     string fileSize = jsonObj["firmwares"][i]["filesize"].ToString();
 
-
-                    HyperLink hypName = new HyperLink();
-                    HyperLink hyp = new HyperLink();
-                    HyperLink hypDateReleased = new HyperLink();
-                    HyperLink hypFileSize = new HyperLink();
-
-                    hypName.ID = "hypName" + i;
-                    hypName.Text = buildid + "<br/>";
-
-                    hyp.ID = "hypABD" + i;
-                    hyp.NavigateUrl = url;
-
-                    hypFileSize.ID = "hypFileSize" + i;
-                    double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                    hypFileSize.Text = fileSizeGB.ToString("0.##") + " GB";
-
-
-                    string[] links = url.Split('/');
-                    int linkInt = links.Length - 1;
-                    hyp.Text = links[linkInt] + "<br/>";
-
-                    hypDateReleased.ID = "hypDateReleased" + i;
-                    if (!dateReleased.Equals(""))
-                    {
-                        DateTime dr = Convert.ToDateTime(dateReleased);
-                        hypDateReleased.Text = dr.ToLongDateString().ToString() + " " + dr.ToLongTimeString().ToString();
-                    }
-                    else
-                    {
-                        hypDateReleased.Text = "-";
-                    }
-
-
-                    tblData.BorderStyle = BorderStyle.Solid;
-
-                    TableRow tr = new TableRow();
-                    TableCell tdName = new TableCell();
-                    TableCell tdLinks = new TableCell();
-                    TableCell tdHyperFileSize = new TableCell();
-                    TableCell tdDateReleased = new TableCell();
-
-                    tdName.Controls.Add(hypName);
-                    tdLinks.Controls.Add(hyp);
-                    tdHyperFileSize.Controls.Add(hypFileSize);
-                    tdDateReleased.Controls.Add(hypDateReleased);
-
-                    tr.Cells.Add(tdName);
-                    tr.Cells.Add(tdLinks); ;
-                    tr.Cells.Add(tdHyperFileSize);
-                    tr.Cells.Add(tdDateReleased);
-                    tblData.Rows.Add(tr);
+                    tbData.Text += url + "<br/>";
+                    originalFileSize += Double.Parse(fileSize);
                 }
+                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
+                lblSelectionComment.Text = "<br/>There are " + jsonObj["firmwares"].Count +
+                                           " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
+            tbData.Visible = true;
         }
 
         protected void ddlVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             lblSelection.Text = ddlVersion.SelectedValue.ToString();
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
@@ -754,6 +560,8 @@ namespace MyIPSWMinimal
 
         protected void ddlVersionOTA_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbData.Visible = false;
+            tbData.Text = "";
             lblSelection.Text = ddlVersionOTA.SelectedValue.ToString();
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
@@ -775,5 +583,6 @@ namespace MyIPSWMinimal
             ddlVersion.Visible = false;
             ddlVersionOTA.Visible = true;
         }
+
     }
 }

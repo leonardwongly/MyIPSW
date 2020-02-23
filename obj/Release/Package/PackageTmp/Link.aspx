@@ -1,7 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="MyIPSWMinimal.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Link.aspx.cs" Inherits="MyIPSWMinimal.Link" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
@@ -34,7 +33,7 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+ <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <a class="navbar-brand" href="Default.aspx" style="color: white;">MyIPSW</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,6 +49,7 @@
         </ul>
     </div>
 </nav>
+
 <body style="background-color: #f5f5f5">
     <form id="form1" runat="server">
         <div class="container">
@@ -144,9 +144,12 @@
 
             <div class="row" style="margin-top: 30px;">
                 <div class="col-sm">
-                    <asp:Table ID="tblData" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" CellSpacing="3" GridLines="Both" class="table table-dark" Style="width: 100%; text-align: center;">
-                    </asp:Table>
-
+                    <div class="card">
+                        <div class="card-body">
+                            <asp:Label ID="tbData" runat="server" Visible="false"></asp:Label>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -154,4 +157,5 @@
         <br />
     </form>
 </body>
+
 </html>

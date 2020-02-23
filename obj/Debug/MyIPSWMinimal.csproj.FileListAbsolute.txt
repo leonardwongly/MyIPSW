@@ -118,3 +118,4 @@ C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csproj.CoreComp
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csproj.CopyComplete
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.dll
 C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.pdb
+C:\Users\LeonardWong\source\repos\MyIPSW\obj\Debug\MyIPSWMinimal.csprojAssemblyReference.cache
