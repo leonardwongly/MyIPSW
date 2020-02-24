@@ -94,7 +94,11 @@ namespace MyIPSWMinimal
                 for (int x = 0; x < iOSVersion.Length; x++)
                 {
                     ddlVersion.Items.Add(new ListItem(iOSVersion[x], iOSVersion[x]));
-                    ddlVersionOTA.Items.Add(new ListItem(OTAVersion[x], OTAVersion[x]));
+                }
+
+                for (int y = 0; y < OTAVersion.Length; y++)
+                {
+                    ddlVersionOTA.Items.Add(new ListItem(OTAVersion[y], OTAVersion[y]));
                 }
 
 
