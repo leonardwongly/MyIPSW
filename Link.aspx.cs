@@ -2,6 +2,8 @@
 using System;
 using System.Net;
 using System.Web.UI.WebControls;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MyIPSWMinimal
 {
@@ -73,7 +75,7 @@ namespace MyIPSWMinimal
                                                         "10.0", "10.0.1", "10.0.2", "10.0.3", "10.1", "10.1.1", "10.2", "10.2.1", "10.3", "10.3.1", "10.3.2", "10.3.3", "10.3.4",
                                                         "11.0", "11.0.1", "11.0.2", "11.0.3", "11.1", "11.1.1", "11.1.2", "11.2", "11.2.1", "11.2.2", "11.2.5", "11.2.6", "11.3", "11.3.1", "11.4", "11.4.1",
                                                         "12.0", "12.0.1", "12.1", "12.1.1", "12.1.2", "12.1.3", "12.1.4", "12.2", "12.3", "12.3.1", "12.3.2", "12.4", "12.4.1", "12.4.2", "12.4.3", "12.4.4", "12.4.5",
-                                                        "13.0", "13.1", "13.1.1", "13.1.2", "13.1.3", "13.2", "13.2.2", "13.2.3", "13.3", "13.3.1"
+                                                        "13.0", "13.1", "13.1.1", "13.1.2", "13.1.3", "13.2", "13.2.2", "13.2.3", "13.3", "13.3.1", "13.4", "13.4.1"
                     };
 
                 string[] OTAVersion = new string[] { "2.0", "2.0.1", "2.1", "2.2", "2.2.1",
@@ -87,7 +89,7 @@ namespace MyIPSWMinimal
                                                         "10.0", "10.0.1", "10.0.2", "10.0.3", "10.1", "10.1.1", "10.2", "10.2.1", "10.2.2", "10.3", "10.3.1", "10.3.2", "10.3.3", "10.3.4", "9.9.10.0.1", "9.9.10.0.3", "9.9.10.1", "9.9.10.1.1", "9.9.10.2", "9.9.10.2.1", "9.9.10.3", "9.9.10.3.1", "9.9.10.3.2", "9.9.10.3.3",
                                                         "11.0", "11.0.1", "11.0.2", "11.0.3", "11.1", "11.1.1", "11.1.2", "11.2", "11.2.1", "11.2.2", "11.2.5", "11.2.6", "11.3", "11.3.1", "11.4", "11.4.1", "9.9.11.0", "9.9.11.0.1", "9.9.11.0.3", "9.9.11.1", "9.9.11.1.1", "9.9.11.2", "9.9.11.2.1", "9.9.11.2.2", "9.9.11.2.5", "9.9.11.2.6", "9.9.11.3", "9.9.11.3.1", "9.9.11.4", "9.9.11.4.1",
                                                         "12.0", "12.0.1", "12.1", "12.1.1", "12.1.2", "12.1.3", "12.2", "12.2.1", "12.3", "12.3.1", "12.4", "12.4.1","9.9.12.0", "9.9.12.0.1", "9.9.12.1", "9.9.12.1.1", "9.9.12.1.2", "9.9.12.1.3","9.9.12.1.4", "9.9.12.2", "9.9.12.3", "9.9.12.3.1", "9.9.12.4", "9.9.12.4.1",
-                                                        "13.0", "13.1", "13.2", "13.3", "13.3.1", "13.4", "9.9.13.0", "9.9.13.1", "9.9.13.1.1", "9.9.13.1.2", "9.9.13.1.3", "9.9.13.2", "9.9.13.2.2", "9.9.13.2.3", "9.9.13.3", "9.9.13.3.1", "9.9.13.4"
+                                                        "13.0", "13.1", "13.2", "13.3", "13.3.1", "13.4", "13.4.1", "13.4.5", "9.9.13.0", "9.9.13.1", "9.9.13.1.1", "9.9.13.1.2", "9.9.13.1.3", "9.9.13.2", "9.9.13.2.2", "9.9.13.2.3", "9.9.13.3", "9.9.13.3.1", "9.9.13.4", "9.9.13.4.1","9.9.13.4.5"
 
                     };
 
@@ -469,10 +471,10 @@ namespace MyIPSWMinimal
 
                     tbData.Text += url + "<br/>";
                     originalFileSize += Double.Parse(fileSize);
-                    
+
                 }
                 fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + jsonVersionObj.Count + 
+                lblSelectionComment.Text = "<br/>There are " + jsonVersionObj.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
 
@@ -486,16 +488,28 @@ namespace MyIPSWMinimal
                 dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
                 double fileSizeGB = 0.00;
                 double originalFileSize = 0.00;
+                ArrayList otaLinks = new ArrayList();
+                ArrayList otaFS = new ArrayList();
                 for (int i = 0; i < jsonVersionOTAObj.Count; i++)
                 {
-                    string url = jsonVersionOTAObj[i]["url"];
-                    string fileSize = jsonVersionOTAObj[i]["filesize"];
+                    if (!otaLinks.Contains(jsonVersionOTAObj[i]["url"]))
+                    {
+                        otaLinks.Add(jsonVersionOTAObj[i]["url"]);
+                        otaFS.Add(jsonVersionOTAObj[i]["filesize"]);
+                    }
+                }
+
+                for (int j = 0; j < otaLinks.Count; j++)
+                {
+                    string url = otaLinks[j].ToString();
+                    string fileSize = otaFS[j].ToString();
 
                     tbData.Text += url + "<br/>";
                     originalFileSize += Double.Parse(fileSize);
                 }
+
                 fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + jsonVersionOTAObj.Count +
+                lblSelectionComment.Text = "<br/>There are " + otaLinks.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
 
