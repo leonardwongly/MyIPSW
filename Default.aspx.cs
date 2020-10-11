@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Drawing;
 using System.Net;
+using System.Web.DynamicData;
 using System.Web.UI.WebControls;
 
 namespace MyIPSWMinimal
@@ -458,18 +460,21 @@ namespace MyIPSWMinimal
                 TableHeaderCell tableHeaderURL = new TableHeaderCell();
                 TableHeaderCell tableHeaderFileSize = new TableHeaderCell();
                 TableHeaderCell tableHeaderReleasedDate = new TableHeaderCell();
+                TableHeaderCell tableHeaderSigned = new TableHeaderCell();
 
                 tableHeaderIdentifier.Text = "Identifier";
                 tableHeaderBuildID.Text = "Build ID";
                 tableHeaderURL.Text = "Download Links";
                 tableHeaderFileSize.Text = "File Size";
                 tableHeaderReleasedDate.Text = "Released Date";
+                tableHeaderSigned.Text = "Signed by Apple";
 
                 thrVersion.Cells.Add(tableHeaderIdentifier);
                 thrVersion.Cells.Add(tableHeaderBuildID);
                 thrVersion.Cells.Add(tableHeaderURL);
                 thrVersion.Cells.Add(tableHeaderFileSize);
                 thrVersion.Cells.Add(tableHeaderReleasedDate);
+                thrVersion.Cells.Add(tableHeaderSigned);
                 tblData.Rows.AddAt(0, thrVersion);
                 lblSelectionComment.Text += "<br/>There are " + jsonVersionObj.Count + " Files";
 
@@ -480,18 +485,21 @@ namespace MyIPSWMinimal
                     string url = jsonVersionObj[i]["url"];
                     string fileSize = jsonVersionObj[i]["filesize"];
                     string releaseDate = jsonVersionObj[i]["releasedate"];
+                    string signed = jsonVersionObj[i]["signed"];
 
                     HyperLink hyperIdentifier = new HyperLink();
                     HyperLink hyperBuildID = new HyperLink();
                     HyperLink hyperURL = new HyperLink();
                     HyperLink hyperFileSize = new HyperLink();
                     HyperLink hyperReleaseDate = new HyperLink();
+                    HyperLink hyperSigned = new HyperLink();
 
                     hyperIdentifier.ID = "hypIdentifier" + i;
                     hyperBuildID.ID = "hyperBuildID" + i;
                     hyperURL.ID = "hyperURL" + i;
                     hyperFileSize.ID = "hyperFileSize" + i;
                     hyperReleaseDate.ID = "hyperReleaseDate" + i;
+                    hyperSigned.ID = "hyperSigned" + i;
 
 
                     hyperIdentifier.Text = identifier + "<br/>";
@@ -514,6 +522,20 @@ namespace MyIPSWMinimal
                     string[] links = url.Split('/');
                     int linkInt = links.Length - 1;
                     hyperURL.Text = links[linkInt] + "<br/>";
+                    if (signed == "True")
+                    {
+                        hyperSigned.Text = "Yes";
+                        hyperSigned.Font.Bold = true;
+                        hyperSigned.ForeColor = Color.Green;
+                        hyperSigned.Font.Size = 14;
+                    } 
+                    else
+                    {
+                        hyperSigned.Text = "No";
+                        hyperSigned.Font.Bold = true;
+                        hyperSigned.ForeColor = Color.Red;
+                        hyperSigned.Font.Size = 14;
+                    }
 
                     tblData.BorderStyle = BorderStyle.Solid;
 
@@ -523,18 +545,21 @@ namespace MyIPSWMinimal
                     TableCell tdURL = new TableCell();
                     TableCell tdFileSize = new TableCell();
                     TableCell tdReleaseDate = new TableCell();
+                    TableCell tdSigned = new TableCell();
 
                     tdIdentifier.Controls.Add(hyperIdentifier);
                     tdBuildID.Controls.Add(hyperBuildID);
                     tdURL.Controls.Add(hyperURL);
                     tdFileSize.Controls.Add(hyperFileSize);
                     tdReleaseDate.Controls.Add(hyperReleaseDate);
+                    tdSigned.Controls.Add(hyperSigned);
 
                     tr.Cells.Add(tdIdentifier);
                     tr.Cells.Add(tdBuildID);
                     tr.Cells.Add(tdURL);
                     tr.Cells.Add(tdFileSize);
                     tr.Cells.Add(tdReleaseDate);
+                    tr.Cells.Add(tdSigned);
                     tblData.Rows.Add(tr);
                 }
             }
@@ -575,19 +600,21 @@ namespace MyIPSWMinimal
                     string url = jsonVersionOTAObj[i]["url"];
                     string fileSize = jsonVersionOTAObj[i]["filesize"];
                     string releaseDate = jsonVersionOTAObj[i]["releasedate"];
+                    string signedOTA = jsonVersionOTAObj[i]["signed"];
 
                     HyperLink hyperIdentifierOTA = new HyperLink();
                     HyperLink hyperBuildIDOTA = new HyperLink();
                     HyperLink hyperURLOTA = new HyperLink();
                     HyperLink hyperFileSizeOTA = new HyperLink();
                     HyperLink hyperReleaseDateOTA = new HyperLink();
+                    HyperLink hyperSignedOTA = new HyperLink();
 
                     hyperIdentifierOTA.ID = "hypIdentifier" + i;
                     hyperBuildIDOTA.ID = "hyperBuildID" + i;
                     hyperURLOTA.ID = "hyperURL" + i;
                     hyperFileSizeOTA.ID = "hyperFileSize" + i;
                     hyperReleaseDateOTA.ID = "hyperReleaseDate" + i;
-
+                    hyperSignedOTA.ID = "hyperSigned" + i;
 
                     hyperIdentifierOTA.Text = identifier + "<br/>";
                     hyperBuildIDOTA.Text = buildID + "<br/>";
@@ -609,6 +636,20 @@ namespace MyIPSWMinimal
                     string[] links = url.Split('/');
                     int linkInt = links.Length - 1;
                     hyperURLOTA.Text = links[linkInt] + "<br/>";
+                    if (signedOTA == "True")
+                    {
+                        hyperSignedOTA.Text = "Yes";
+                        hyperSignedOTA.Font.Bold = true;
+                        hyperSignedOTA.ForeColor = Color.Green;
+                        hyperSignedOTA.Font.Size = 14;
+                    }
+                    else
+                    {
+                        hyperSignedOTA.Text = "No";
+                        hyperSignedOTA.Font.Bold = true;
+                        hyperSignedOTA.ForeColor = Color.Red;
+                        hyperSignedOTA.Font.Size = 14;
+                    }
 
                     tblData.BorderStyle = BorderStyle.Solid;
 
@@ -618,18 +659,21 @@ namespace MyIPSWMinimal
                     TableCell tdURLOTA = new TableCell();
                     TableCell tdFileSizeOTA = new TableCell();
                     TableCell tdReleaseDateOTA = new TableCell();
+                    TableCell tdSignedOTA = new TableCell();
 
                     tdIdentifierOTA.Controls.Add(hyperIdentifierOTA);
                     tdBuildIDOTA.Controls.Add(hyperBuildIDOTA);
                     tdURLOTA.Controls.Add(hyperURLOTA);
                     tdFileSizeOTA.Controls.Add(hyperFileSizeOTA);
                     tdReleaseDateOTA.Controls.Add(hyperReleaseDateOTA);
+                    tdSignedOTA.Controls.Add(hyperSignedOTA);
 
                     tr.Cells.Add(tdIdentifierOTA);
                     tr.Cells.Add(tdBuildIDOTA);
                     tr.Cells.Add(tdURLOTA);
                     tr.Cells.Add(tdFileSizeOTA);
                     tr.Cells.Add(tdReleaseDateOTA);
+                    tr.Cells.Add(tdSignedOTA);
                     tblData.Rows.Add(tr);
                 }
             }
@@ -655,20 +699,23 @@ namespace MyIPSWMinimal
                 dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
 
                 TableHeaderRow thr = new TableHeaderRow();
-                TableHeaderCell headerTableCell0 = new TableHeaderCell();
-                TableHeaderCell headerTableCell2 = new TableHeaderCell();
-                TableHeaderCell headerTableCell3 = new TableHeaderCell();
-                TableHeaderCell headerTableCell4 = new TableHeaderCell();
+                TableHeaderCell headerBuildID = new TableHeaderCell();
+                TableHeaderCell headerLinks= new TableHeaderCell();
+                TableHeaderCell headerReleaseDT = new TableHeaderCell();
+                TableHeaderCell headerFS = new TableHeaderCell();
+                TableHeaderCell headerSigned = new TableHeaderCell();
 
-                headerTableCell0.Text = "Build ID";
-                headerTableCell2.Text = "Links";
-                headerTableCell3.Text = "Release Date & Time";
-                headerTableCell4.Text = "File Size";
+                headerBuildID.Text = "Build ID";
+                headerLinks.Text = "Links";
+                headerReleaseDT.Text = "Release Date & Time";
+                headerFS.Text = "File Size";
+                headerSigned.Text = "Signed by Apple";
 
-                thr.Cells.Add(headerTableCell0);
-                thr.Cells.Add(headerTableCell2);
-                thr.Cells.Add(headerTableCell4);
-                thr.Cells.Add(headerTableCell3);
+                thr.Cells.Add(headerBuildID);
+                thr.Cells.Add(headerLinks);
+                thr.Cells.Add(headerFS);
+                thr.Cells.Add(headerReleaseDT);
+                thr.Cells.Add(headerSigned);
                 tblData.Rows.AddAt(0, thr);
                 lblSelectionComment.Text += "<br/>There are " + jsonObj["firmwares"].Count + " Files";
 
@@ -678,12 +725,14 @@ namespace MyIPSWMinimal
                     string url = jsonObj["firmwares"][i]["url"].ToString();
                     string dateReleased = jsonObj["firmwares"][i]["releasedate"].ToString();
                     string fileSize = jsonObj["firmwares"][i]["filesize"].ToString();
+                    string signed = jsonObj["firmwares"][i]["signed"].ToString();
 
 
                     HyperLink hypName = new HyperLink();
                     HyperLink hyp = new HyperLink();
                     HyperLink hypDateReleased = new HyperLink();
                     HyperLink hypFileSize = new HyperLink();
+                    HyperLink hypSigned = new HyperLink();
 
                     hypName.ID = "hypName" + i;
                     hypName.Text = buildid + "<br/>";
@@ -711,6 +760,23 @@ namespace MyIPSWMinimal
                         hypDateReleased.Text = "-";
                     }
 
+                    hypSigned.ID = "hyperSigned" + i;
+
+
+                    if (signed == "True")
+                    {
+                        hypSigned.Text = "Yes";
+                        hypSigned.Font.Bold = true;
+                        hypSigned.ForeColor = Color.Green;
+                        hypSigned.Font.Size = 14;
+                    }
+                    else
+                    {
+                        hypSigned.Text = "No";
+                        hypSigned.Font.Bold = true;
+                        hypSigned.ForeColor = Color.Red;
+                        hypSigned.Font.Size = 14;
+                    }
 
                     tblData.BorderStyle = BorderStyle.Solid;
 
@@ -719,16 +785,19 @@ namespace MyIPSWMinimal
                     TableCell tdLinks = new TableCell();
                     TableCell tdHyperFileSize = new TableCell();
                     TableCell tdDateReleased = new TableCell();
+                    TableCell tdSigned = new TableCell();
 
                     tdName.Controls.Add(hypName);
                     tdLinks.Controls.Add(hyp);
                     tdHyperFileSize.Controls.Add(hypFileSize);
                     tdDateReleased.Controls.Add(hypDateReleased);
+                    tdSigned.Controls.Add(hypSigned);
 
                     tr.Cells.Add(tdName);
                     tr.Cells.Add(tdLinks); ;
                     tr.Cells.Add(tdHyperFileSize);
                     tr.Cells.Add(tdDateReleased);
+                    tr.Cells.Add(tdSigned);
                     tblData.Rows.Add(tr);
                 }
             }
