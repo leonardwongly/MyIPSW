@@ -105,7 +105,12 @@
                             <asp:ListItem Text="Select iPod Model" Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </div>
-
+                     <br />
+                        <div class="row">
+                        <asp:DropDownList ID="ddlMac" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMac_SelectedIndexChanged" CssClass="form-control">
+                            <asp:ListItem Text="Select Mac Model" Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <br />
                     <div class="row">
                         <asp:DropDownList ID="ddlWatch" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlWatch_SelectedIndexChanged" CssClass="form-control">

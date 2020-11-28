@@ -23,6 +23,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = false;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -61,6 +62,10 @@ namespace MyIPSWMinimal
                     {
                         ddlAppleTV.Items.Add(new ListItem(name, identifier));
                     }
+                    else if (identifier.Contains("Mac"))
+                    {
+                        ddlMac.Items.Add(new ListItem(name, identifier));
+                    }
                 }
 
                 string[] iOSVersion = new string[] { "1.0", "1.0.1", "1.0.2", "1.1", "1.1.1", "1.1.2", "1.1.3", "1.1.4", "1.1.5",
@@ -76,7 +81,7 @@ namespace MyIPSWMinimal
                                         "11.0", "11.0.1", "11.0.2", "11.0.3", "11.1", "11.1.1", "11.1.2", "11.2", "11.2.1", "11.2.2", "11.2.5", "11.2.6", "11.3", "11.3.1", "11.4", "11.4.1",
                                         "12.0", "12.0.1", "12.1", "12.1.1", "12.1.2", "12.1.3", "12.1.4", "12.2", "12.3", "12.3.1", "12.3.2", "12.4", "12.4.1", "12.4.2", "12.4.3", "12.4.4", "12.4.5",
                                         "13.0", "13.1", "13.1.1", "13.1.2", "13.1.3", "13.2", "13.2.2", "13.2.3", "13.3", "13.3.1", "13.4", "13.4.1", "13.4.6", "13.5", "13.5.1", "13.6", "13.6.1","13.7",
-                                        "14.0","14.0.1"
+                                        "14.0","14.0.1","14.1","14.2","14.2.1"
     };
                 string[] OTAVersion = new string[] { "2.0", "2.0.1", "2.1", "2.2", "2.2.1",
                                         "3.0",  "3.1", "3.1.1", "3.1.3", "3.2", "3.2.2",
@@ -90,7 +95,7 @@ namespace MyIPSWMinimal
                                         "11.0", "11.0.1", "11.0.2", "11.0.3", "11.1", "11.1.1", "11.1.2", "11.2", "11.2.1", "11.2.2", "11.2.5", "11.2.6", "11.3", "11.3.1", "11.4", "11.4.1", "9.9.11.0", "9.9.11.0.1", "9.9.11.0.3", "9.9.11.1", "9.9.11.1.1", "9.9.11.2", "9.9.11.2.1", "9.9.11.2.2", "9.9.11.2.5", "9.9.11.2.6", "9.9.11.3", "9.9.11.3.1", "9.9.11.4", "9.9.11.4.1",
                                         "12.0", "12.0.1", "12.1", "12.1.1", "12.1.2", "12.1.3", "12.2", "12.2.1", "12.3", "12.3.1", "12.4", "12.4.1","9.9.12.0", "9.9.12.0.1", "9.9.12.1", "9.9.12.1.1", "9.9.12.1.2", "9.9.12.1.3","9.9.12.1.4", "9.9.12.2", "9.9.12.3", "9.9.12.3.1", "9.9.12.4", "9.9.12.4.1",
                                         "13.0", "13.1", "13.2", "13.3", "13.3.1", "13.4", "13.4.1", "13.4.5", "13.4.6", "13.4.8", "13.5", "13.6", "9.9.13.0", "9.9.13.1", "9.9.13.1.1", "9.9.13.1.2", "9.9.13.1.3", "9.9.13.2", "9.9.13.2.2", "9.9.13.2.3", "9.9.13.3", "9.9.13.3.1", "9.9.13.4", "9.9.13.4.1","9.9.13.4.5", "9.9.13.4.6", "9.9.13.5", "9.9.13.5.1", "9.9.13.5.5", "9.9.13.6", "9.9.13.6.1", "9.9.13.7",
-                                        "9.9.14.0"
+                                        "9.9.14.0","9.9.14.1","9.9.14.2","9.9.14.2.1"
     };
 
                 for (int x = 0; x < iOSVersion.Length; x++)
@@ -103,6 +108,65 @@ namespace MyIPSWMinimal
                     ddlVersionOTA.Items.Add(new ListItem(OTAVersion[y], OTAVersion[y]));
                 }
             }
+        }
+
+        protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbData.Visible = false;
+            tbData.Text = "";
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
+                ddlAudioAccessory.Visible = false;
+                ddlVersion.Visible = false;
+                ddlVersionOTA.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
+                ddlAudioAccessory.Visible = true;
+                ddlVersion.Visible = false;
+                ddlVersionOTA.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("Version"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = false;
+                ddliPad.Visible = false;
+                ddliPod.Visible = false;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlMac.Visible = false;
+                ddlAudioAccessory.Visible = false;
+                ddlVersion.Visible = true;
+                ddlVersionOTA.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("Version (OTA)"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = false;
+                ddliPad.Visible = false;
+                ddliPod.Visible = false;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlMac.Visible = false;
+                ddlAudioAccessory.Visible = false;
+                ddlVersion.Visible = false;
+                ddlVersionOTA.Visible = true;
+            }
+
         }
 
         protected void ddliPhone_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,6 +192,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -140,6 +205,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -149,62 +215,8 @@ namespace MyIPSWMinimal
             ddliPod.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
             ddlAppleTV.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAudioAccessory.SelectedIndex = 0;
-        }
-
-        protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            tbData.Visible = false;
-            tbData.Text = "";
-            if (rblOptions.SelectedItem.ToString().Equals("Official"))
-            {
-                lblStep2.Visible = true;
-                ddliPhone.Visible = true;
-                ddliPad.Visible = true;
-                ddliPod.Visible = true;
-                ddlWatch.Visible = false;
-                ddlAppleTV.Visible = false;
-                ddlAudioAccessory.Visible = false;
-                ddlVersion.Visible = false;
-                ddlVersionOTA.Visible = false;
-            }
-            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
-            {
-                lblStep2.Visible = true;
-                ddliPhone.Visible = true;
-                ddliPad.Visible = true;
-                ddliPod.Visible = true;
-                ddlWatch.Visible = true;
-                ddlAppleTV.Visible = true;
-                ddlAudioAccessory.Visible = true;
-                ddlVersion.Visible = false;
-                ddlVersionOTA.Visible = false;
-            }
-            else if (rblOptions.SelectedItem.ToString().Equals("Version"))
-            {
-                lblStep2.Visible = true;
-                ddliPhone.Visible = false;
-                ddliPad.Visible = false;
-                ddliPod.Visible = false;
-                ddlWatch.Visible = false;
-                ddlAppleTV.Visible = false;
-                ddlAudioAccessory.Visible = false;
-                ddlVersion.Visible = true;
-                ddlVersionOTA.Visible = false;
-            }
-            else if (rblOptions.SelectedItem.ToString().Equals("Version (OTA)"))
-            {
-                lblStep2.Visible = true;
-                ddliPhone.Visible = false;
-                ddliPad.Visible = false;
-                ddliPod.Visible = false;
-                ddlWatch.Visible = false;
-                ddlAppleTV.Visible = false;
-                ddlAudioAccessory.Visible = false;
-                ddlVersion.Visible = false;
-                ddlVersionOTA.Visible = true;
-            }
-
         }
 
         protected void ddliPad_SelectedIndexChanged(object sender, EventArgs e)
@@ -215,6 +227,7 @@ namespace MyIPSWMinimal
             ddliPod.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
             ddlAppleTV.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAudioAccessory.SelectedIndex = 0;
 
             lblSelection.Text = ddliPad.SelectedValue.ToString();
@@ -236,6 +249,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -248,6 +262,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -264,6 +279,7 @@ namespace MyIPSWMinimal
             ddliPad.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
             ddlAppleTV.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAudioAccessory.SelectedIndex = 0;
 
             lblSelection.Text = ddliPod.SelectedValue.ToString();
@@ -285,6 +301,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -297,6 +314,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -314,6 +332,7 @@ namespace MyIPSWMinimal
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
             ddlAppleTV.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAudioAccessory.SelectedIndex = 0;
 
             lblSelection.Text = ddlWatch.SelectedValue.ToString();
@@ -335,6 +354,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -347,6 +367,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -362,6 +383,7 @@ namespace MyIPSWMinimal
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAppleTV.SelectedIndex = 0;
 
             lblSelection.Text = ddlAudioAccessory.SelectedValue.ToString();
@@ -383,6 +405,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -395,6 +418,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -411,6 +435,7 @@ namespace MyIPSWMinimal
             ddliPad.SelectedIndex = 0;
             ddliPod.SelectedIndex = 0;
             ddlWatch.SelectedIndex = 0;
+            ddlMac.SelectedIndex = 0;
             ddlAudioAccessory.SelectedIndex = 0;
 
             lblSelection.Text = ddlAppleTV.SelectedValue.ToString();
@@ -432,6 +457,7 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = false;
                 ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
                 ddlAudioAccessory.Visible = false;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
@@ -444,15 +470,62 @@ namespace MyIPSWMinimal
                 ddliPod.Visible = true;
                 ddlWatch.Visible = true;
                 ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
                 ddlAudioAccessory.Visible = true;
                 ddlVersion.Visible = false;
                 ddlVersionOTA.Visible = false;
             }
-
-
         }
 
-        protected void btnRetrieve_Click(object sender, EventArgs e)
+        protected void ddlMac_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddliPhone.SelectedIndex = 0;
+            ddliPad.SelectedIndex = 0;
+            ddliPod.SelectedIndex = 0;
+            ddlWatch.SelectedIndex = 0;
+            ddlAppleTV.SelectedIndex = 0;
+            ddlAudioAccessory.SelectedIndex = 0;
+
+            lblSelection.Text = ddlMac.SelectedValue.ToString();
+            lblSelection.Font.Bold = true;
+            lblSelection.Font.Size = 15;
+
+            lblSelectionComment.Text = "You have selected <b>" + rblOptions.SelectedItem.ToString() + " " + ddlMac.SelectedItem.ToString() + "</b> with the identifier: ";
+            btnRetrieve.Text = "Retrieve";
+            btnRetrieve.Visible = true;
+
+            lblStep3.Visible = true;
+            lblStep3.Font.Bold = true;
+
+            if (rblOptions.SelectedItem.ToString().Equals("Official"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = false;
+                ddlAppleTV.Visible = false;
+                ddlMac.Visible = true;
+                ddlAudioAccessory.Visible = false;
+                ddlVersion.Visible = false;
+                ddlVersionOTA.Visible = false;
+            }
+            else if (rblOptions.SelectedItem.ToString().Equals("OTA"))
+            {
+                lblStep2.Visible = true;
+                ddliPhone.Visible = true;
+                ddliPad.Visible = true;
+                ddliPod.Visible = true;
+                ddlWatch.Visible = true;
+                ddlAppleTV.Visible = true;
+                ddlMac.Visible = false;
+                ddlAudioAccessory.Visible = true;
+                ddlVersion.Visible = false;
+                ddlVersionOTA.Visible = false;
+            }
+        }
+
+            protected void btnRetrieve_Click(object sender, EventArgs e)
         {
             if (rblOptions.SelectedItem.Value.Equals("Version"))
             {
@@ -579,6 +652,7 @@ namespace MyIPSWMinimal
             ddliPod.Visible = false;
             ddlWatch.Visible = false;
             ddlAppleTV.Visible = false;
+            ddlMac.Visible = false;
             ddlAudioAccessory.Visible = false;
             ddlVersion.Visible = true;
             ddlVersionOTA.Visible = false;
@@ -605,6 +679,7 @@ namespace MyIPSWMinimal
             ddliPod.Visible = false;
             ddlWatch.Visible = false;
             ddlAppleTV.Visible = false;
+            ddlMac.Visible = false;
             ddlAudioAccessory.Visible = false;
             ddlVersion.Visible = false;
             ddlVersionOTA.Visible = true;
