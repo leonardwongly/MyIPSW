@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="\\Mac\Home\Documents\GitHub\MyIPSW\obj\Release\Package\PackageTmp" managedRuntimeVersion="v4.0" />
-  <setAcl path="\\Mac\Home\Documents\GitHub\MyIPSW\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="\\Mac\Home\Documents\GitHub\MyIPSW\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <IisApp path="Z:\Developer\Projects\MyIPSW\obj\Release\Package\PackageTmp" managedRuntimeVersion="v4.0" />
+  <setAcl path="Z:\Developer\Projects\MyIPSW\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="Z:\Developer\Projects\MyIPSW\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>

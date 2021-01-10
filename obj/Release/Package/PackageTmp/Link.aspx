@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Link.aspx.cs" Inherits="MyIPSWMinimal.Link" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Link.aspx.cs" Inherits="MyIPSWMinimal.Link" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -112,7 +112,12 @@
                             <asp:ListItem Text="Select Apple Watch Model" Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </div>
-
+                    <br />
+                        <div class="row">
+                        <asp:DropDownList ID="ddlMac" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMac_SelectedIndexChanged" CssClass="form-control">
+                            <asp:ListItem Text="Select Mac Model" Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <br />
                     <div class="row">
                         <asp:DropDownList ID="ddlAudioAccessory" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlAudioAccessory_SelectedIndexChanged" CssClass="form-control">
