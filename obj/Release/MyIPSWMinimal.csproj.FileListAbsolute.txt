@@ -237,8 +237,8 @@ Z:\Developer\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 Z:\Developer\MyIPSW\bin\Newtonsoft.Json.dll
 Z:\Developer\MyIPSW\bin\Newtonsoft.Json.xml
 Z:\Developer\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csprojAssemblyReference.cache
 Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CoreCompileInputs.cache
 Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CopyComplete
 Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.dll
 Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.pdb
+Z:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.AssemblyReference.cache
