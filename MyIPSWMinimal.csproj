@@ -98,6 +98,7 @@
     <Content Include="favicon\ms-icon-310x310.png" />
     <Content Include="favicon\ms-icon-70x70.png" />
     <Content Include="Link.aspx" />
+    <Content Include="Properties\PublishProfiles\myipswsg - Web Deploy.pubxml.user" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +121,6 @@
   <ItemGroup>
     <Content Include="favicon\manifest.json" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\myipswsg - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\myipswsg - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -129,6 +129,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
