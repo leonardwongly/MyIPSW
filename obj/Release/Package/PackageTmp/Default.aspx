@@ -35,6 +35,13 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <script type="module">
+        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+</script>
+    <link rel="manifest" href="manifest.json" />
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">

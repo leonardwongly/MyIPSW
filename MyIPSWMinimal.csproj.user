@@ -9,7 +9,8 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
-    <NameOfLastUsedPublishProfile>myipswsg - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>Z:\Developer\MyIPSW\Properties\PublishProfiles\myipswsg - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
