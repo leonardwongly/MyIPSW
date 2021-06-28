@@ -31,7 +31,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -41,7 +41,6 @@
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
 </script>
-    <link rel="manifest" href="manifest.json" />
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
