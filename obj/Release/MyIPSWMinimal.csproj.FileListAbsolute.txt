@@ -54,6 +54,5 @@ Y:\Developer\MyIPSW\bin\Newtonsoft.Json.xml
 Y:\Developer\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.AssemblyReference.cache
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CoreCompileInputs.cache
-Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CopyComplete
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.dll
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.pdb
