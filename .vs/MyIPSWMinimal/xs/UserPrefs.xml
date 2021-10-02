@@ -3,7 +3,7 @@
     <Files>
       <File FileName="Default.aspx.cs" Line="71" Column="17" />
       <File FileName="Link.aspx.cs" Line="79" Column="60" NotebookId="1" />
-      <File FileName="Link.aspx" NotebookId="1" />
+      <File FileName="Link.aspx" Line="1" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,12 +14,13 @@
                 <Node name="PublishProfiles" expanded="True" />
               </Node>
               <Node name="Default.aspx" expanded="True" />
-              <Node name="Link.aspx" expanded="True">
-                <Node name="Link.aspx.cs" selected="True" />
-              </Node>
+              <Node name="Link.aspx" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
