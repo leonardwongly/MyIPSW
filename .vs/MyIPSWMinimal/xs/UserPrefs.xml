@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{23448F1E-1520-4499-AC91-BDE440CF10D1}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Link.aspx.cs">
     <Files>
-      <File FileName="Default.aspx.cs" Line="71" Column="17" />
-      <File FileName="Link.aspx.cs" Line="79" Column="60" NotebookId="1" />
+      <File FileName="Default.aspx.cs" Line="105" Column="1" />
+      <File FileName="Link.aspx.cs" Line="101" Column="93" NotebookId="1" />
       <File FileName="Link.aspx" Line="1" Column="1" NotebookId="1" />
     </Files>
     <Pads>
@@ -10,6 +10,7 @@
         <State name="__root__">
           <Node name="MyIPSWMinimal" expanded="True">
             <Node name="MyIPSWMinimal" expanded="True">
+              <Node name="Packages" expanded="True" />
               <Node name="Properties" expanded="True">
                 <Node name="PublishProfiles" expanded="True" />
               </Node>
