@@ -56,10 +56,3 @@ Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.AssemblyReference.cache
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CoreCompileInputs.cache
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.dll
 Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.pdb
-Y:\Developer\MyIPSW\bin\roslyn\System.Buffers.dll
-Y:\Developer\MyIPSW\bin\roslyn\System.Memory.dll
-Y:\Developer\MyIPSW\bin\roslyn\System.Numerics.Vectors.dll
-Y:\Developer\MyIPSW\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
-Y:\Developer\MyIPSW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-Y:\Developer\MyIPSW\bin\Newtonsoft.Json.dll
-Y:\Developer\MyIPSW\obj\Release\MyIPSWMinimal.csproj.CopyComplete
