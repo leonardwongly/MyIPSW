@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'MyIPSW'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CC3FA8F821374129A88E6E783CDCFEF1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_016AEDEA2CC54B3C93B1E9D1F8422390 }}
           package: .
