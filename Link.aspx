@@ -38,10 +38,26 @@
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
-</script>
+    </script>
+
+    <script type="text/javascript">
+        function downloadAll() {
+            var label = document.getElementById('<%= listOfLinks.ClientID %>');
+            
+            var urls = label.innerText.split(';');
+            for (var i = 0; i < urls.length-1; i++) {
+                window.open(urls[i], '_blank');
+            }
+        }
+    </script>
+    <style type="text/css">
+        .hidden {
+            display:none;
+        }
+    </style>
 </head>
 
- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <a class="navbar-brand" href="Default.aspx" style="color: white;">IPSW</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -121,7 +137,7 @@
                         </asp:DropDownList>
                     </div>
                     <br />
-                        <div class="row">
+                    <div class="row">
                         <asp:DropDownList ID="ddlMac" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMac_SelectedIndexChanged" CssClass="form-control">
                             <asp:ListItem Text="Select Mac Model" Selected="True"></asp:ListItem>
                         </asp:DropDownList>
@@ -159,15 +175,18 @@
                 <div class="col-sm">
                     <div class="card">
                         <div class="card-body">
-                            <asp:Label ID="tbData" runat="server" Visible="false"></asp:Label>
+                            <asp:Label ID="tbData" runat="server" Visible="false" Style="text-align: left; display: block;"></asp:Label>
                         </div>
+                        <br />
+                        <asp:Button ID="btnDownloadAll" runat="server" Text="Download All" Visible="false" OnClientClick="downloadAll()" CssClass="btn btn-primary" />
                     </div>
-                    
+
                 </div>
             </div>
 
         </div>
         <br />
+        <asp:Label ID="listOfLinks" runat="server" CssClass="hidden"></asp:Label>
     </form>
 </body>
 

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -119,6 +120,7 @@ namespace ipsw
 
         protected void rblOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnDownloadAll.Visible = false; 
             tbData.Visible = false;
             tbData.Text = "";
             if (rblOptions.SelectedItem.ToString().Equals("Official"))
@@ -544,18 +546,35 @@ namespace ipsw
                 dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
                 double fileSizeGB = 0.00;
                 double originalFileSize = 0.00;
+                // Create a dictionary to store url and file size
+                Dictionary<string, string> urlArray = new Dictionary<string, string>();
                 for (int i = 0; i < jsonVersionObj.Count; i++)
                 {
                     string url = jsonVersionObj[i]["url"];
                     string fileSize = jsonVersionObj[i]["filesize"];
-
-                    tbData.Text += url + "<br/>";
-                    originalFileSize += Double.Parse(fileSize);
-
+                    // Store in dictionary. This will automatically handle duplicate urls.
+                    if (!urlArray.ContainsKey(url))
+                    {
+                        urlArray.Add(url, fileSize);
+                    }
+                   
                 }
+
+                foreach (KeyValuePair<string, string> item in urlArray)
+                {
+
+                    string[] urlFullTitle = item.Key.ToString().Split('/');
+                    string urlTitle = urlFullTitle[urlFullTitle.Length - 1];
+
+                    tbData.Text += "<a href=\"" + item.Key.ToString() + "\" target=\"_blank\">" + urlTitle + "</a><br/>";
+                    listOfLinks.Text += item.Key.ToString()+ ";";
+                    originalFileSize += Double.Parse(item.Value);
+                }
+
                 fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + jsonVersionObj.Count +
+                lblSelectionComment.Text = "<br/>There are " + urlArray.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
+                
             }
 
             else if (rblOptions.SelectedItem.Value.Equals("Version (OTA)"))
@@ -628,6 +647,7 @@ namespace ipsw
                     string fileSize = otaFS[j].ToString();
 
                     tbData.Text += url + "<br/>";
+                   
                     originalFileSize += Double.Parse(fileSize);
                 }
 
@@ -636,6 +656,7 @@ namespace ipsw
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
             tbData.Visible = true;
+            btnDownloadAll.Visible = true;
         }
 
         protected void ddlVersion_SelectedIndexChanged(object sender, EventArgs e)
@@ -691,7 +712,6 @@ namespace ipsw
             ddlVersion.Visible = false;
             ddlVersionOTA.Visible = true;
         }
-
 
     }
 }
