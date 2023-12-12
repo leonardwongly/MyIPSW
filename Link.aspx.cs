@@ -571,6 +571,13 @@ namespace ipsw
                     listOfLinks.Text += item.Key.ToString()+ ";";
                     originalFileSize += Double.Parse(item.Value);
                 }
+                
+                tbData.Text += "<br/><br/><h4>URL in Text Format</h4><br/>";
+            
+                foreach (KeyValuePair<string, string> item in urlArray)
+                {
+                    tbData.Text += item.Key.ToString() + "<br/>";
+                }
 
                 fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
                 lblSelectionComment.Text = "<br/>There are " + urlArray.Count +
