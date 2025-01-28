@@ -109,6 +109,7 @@ namespace ipsw
                                                          "9.9.15.0","9.9.15.0.1","9.9.15.0.2","9.9.15.1","9.9.15.1.1","9.9.15.2"
 
                      };
+                     Array.Reverse(OTAVersion);
 
                 for (int x = 0; x < iOSVersion.Length; x++)
                 {
