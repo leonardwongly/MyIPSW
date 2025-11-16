@@ -705,7 +705,7 @@ namespace ipsw
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
 
-            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersionOTA.SelectedItem.ToString();
+            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersionOTA.SelectedItem.ToString() + "</b>";
             btnRetrieve.Text = "Retrieve";
             btnRetrieve.Visible = true;
 
