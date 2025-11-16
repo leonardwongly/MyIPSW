@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipsw", "ipsw.csproj", "{7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ipsw.Tests", "ipsw.Tests\ipsw.Tests.csproj", "{50CE4CC6-27E2-4023-AB16-FE94A12785F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,10 +14,14 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
+                {7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {7BE4188A-D20B-4FBC-BA12-CA612F7C16A5}.Release|Any CPU.Build.0 = Release|Any CPU
+                {50CE4CC6-27E2-4023-AB16-FE94A12785F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {50CE4CC6-27E2-4023-AB16-FE94A12785F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {50CE4CC6-27E2-4023-AB16-FE94A12785F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+                {50CE4CC6-27E2-4023-AB16-FE94A12785F3}.Release|Any CPU.Build.0 = Release|Any CPU
+        EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

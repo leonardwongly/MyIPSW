@@ -1,10 +1,7 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net;
-using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -547,43 +544,36 @@ namespace ipsw
 
                 WebClient webClientVersion = new WebClient();
                 versionJSON = webClientVersion.DownloadString("https://api.ipsw.me/v4/ipsw/" + version);
-                dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
-                double fileSizeGB = 0.00;
-                double originalFileSize = 0.00;
-                // Create a dictionary to store url and file size
-                Dictionary<string, string> urlArray = new Dictionary<string, string>();
-                for (int i = 0; i < jsonVersionObj.Count; i++)
+                FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(versionJSON, FirmwareAggregationMode.VersionIpsw);
+                foreach (FirmwareLinkInfo link in result.Links)
                 {
-                    string url = jsonVersionObj[i]["url"];
-                    string fileSize = jsonVersionObj[i]["filesize"];
-                    // Store in dictionary. This will automatically handle duplicate urls.
-                    if (!urlArray.ContainsKey(url))
+                    string urlTitle = link.Url;
+                    try
                     {
-                        urlArray.Add(url, fileSize);
+                        urlTitle = Path.GetFileName(new Uri(link.Url).AbsolutePath);
                     }
-                   
+                    catch (UriFormatException)
+                    {
+                    }
+
+                    if (string.IsNullOrEmpty(urlTitle))
+                    {
+                        urlTitle = link.Url;
+                    }
+
+                    tbData.Text += "<a href=\"" + link.Url + "\" target=\"_blank\">" + urlTitle + "</a><br/>";
+                    listOfLinks.Text += link.Url + ";";
                 }
 
-                foreach (KeyValuePair<string, string> item in urlArray)
-                {
-
-                    string[] urlFullTitle = item.Key.ToString().Split('/');
-                    string urlTitle = urlFullTitle[urlFullTitle.Length - 1];
-
-                    tbData.Text += "<a href=\"" + item.Key.ToString() + "\" target=\"_blank\">" + urlTitle + "</a><br/>";
-                    listOfLinks.Text += item.Key.ToString()+ ";";
-                    originalFileSize += Double.Parse(item.Value);
-                }
-                
                 tbData.Text += "<br/><br/><h4>URL in Text Format</h4><br/>";
-            
-                foreach (KeyValuePair<string, string> item in urlArray)
+
+                foreach (FirmwareLinkInfo link in result.Links)
                 {
-                    tbData.Text += item.Key.ToString() + "<br/>";
+                    tbData.Text += link.Url + "<br/>";
                 }
 
-                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + urlArray.Count +
+                double fileSizeGB = result.TotalSizeBytes / 1024d / 1024d / 1024d;
+                lblSelectionComment.Text = "<br/>There are " + result.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
                 
             }
@@ -595,31 +585,15 @@ namespace ipsw
 
                 WebClient webClientVersionOTA = new WebClient();
                 versionOTAJSON = webClientVersionOTA.DownloadString("https://api.ipsw.me/v4/ota/" + versionOTA);
-                dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
-                double fileSizeGB = 0.00;
-                double originalFileSize = 0.00;
-                ArrayList otaLinks = new ArrayList();
-                ArrayList otaFS = new ArrayList();
-                for (int i = 0; i < jsonVersionOTAObj.Count; i++)
+                FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(versionOTAJSON, FirmwareAggregationMode.VersionOta);
+
+                foreach (FirmwareLinkInfo link in result.Links)
                 {
-                    if (!otaLinks.Contains(jsonVersionOTAObj[i]["url"]))
-                    {
-                        otaLinks.Add(jsonVersionOTAObj[i]["url"]);
-                        otaFS.Add(jsonVersionOTAObj[i]["filesize"]);
-                    }
+                    tbData.Text += link.Url + "<br/>";
                 }
 
-                for (int j = 0; j < otaLinks.Count; j++)
-                {
-                    string url = otaLinks[j].ToString();
-                    string fileSize = otaFS[j].ToString();
-
-                    tbData.Text += url + "<br/>";
-                    originalFileSize += Double.Parse(fileSize);
-                }
-
-                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + otaLinks.Count +
+                double fileSizeGB = result.TotalSizeBytes / 1024d / 1024d / 1024d;
+                lblSelectionComment.Text = "<br/>There are " + result.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
 
@@ -640,30 +614,15 @@ namespace ipsw
                     myJSON = webClient.DownloadString("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
                 }
 
-                dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
-                double fileSizeGB = 0.00;
-                double originalFileSize = 0.00;
-                ArrayList otaLinks = new ArrayList();
-                ArrayList otaFS = new ArrayList();
-                for (int i = 0; i < jsonObj["firmwares"].Count; i++)
-                {
-                    otaLinks.Add(jsonObj["firmwares"][i]["url"]);
-                    otaFS.Add(jsonObj["firmwares"][i]["filesize"]);
+                FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(myJSON, FirmwareAggregationMode.Device);
 
+                foreach (FirmwareLinkInfo link in result.Links)
+                {
+                    tbData.Text += link.Url + "<br/>";
                 }
 
-                for (int j = 0; j < otaLinks.Count; j++)
-                {
-                    string url = otaLinks[j].ToString();
-                    string fileSize = otaFS[j].ToString();
-
-                    tbData.Text += url + "<br/>";
-                   
-                    originalFileSize += Double.Parse(fileSize);
-                }
-
-                fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                lblSelectionComment.Text = "<br/>There are " + otaLinks.Count +
+                double fileSizeGB = result.TotalSizeBytes / 1024d / 1024d / 1024d;
+                lblSelectionComment.Text = "<br/>There are " + result.Count +
                                            " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
             }
             tbData.Visible = true;
