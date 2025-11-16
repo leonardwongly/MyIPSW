@@ -62,6 +62,13 @@
 <body style="background-color: #f5f5f5">
     <form id="form1" runat="server">
         <div class="container">
+            <asp:PlaceHolder ID="phError" runat="server" Visible="false">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-sm">
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
+                    </div>
+                </div>
+            </asp:PlaceHolder>
             <div class="row">
                 <div class="col-sm" style="margin-top: 30px">
                     <h4>Step 1</h4>
