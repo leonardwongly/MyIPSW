@@ -77,6 +77,13 @@
 <body style="background-color: #f5f5f5">
     <form id="form1" runat="server">
         <div class="container">
+            <asp:PlaceHolder ID="phError" runat="server" Visible="false">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-sm">
+                        <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
+                    </div>
+                </div>
+            </asp:PlaceHolder>
             <div class="row">
                 <div class="col-sm" style="margin-top: 30px">
                     <h4>Step 1</h4>
@@ -175,10 +182,25 @@
                 <div class="col-sm">
                     <div class="card">
                         <div class="card-body">
-                            <asp:Label ID="tbData" runat="server" Visible="false" Style="text-align: left; display: block;"></asp:Label>
+                            <asp:Repeater ID="rptLinks" runat="server" Visible="false">
+                                <HeaderTemplate>
+                                     <h4>Download Links:</h4>
+                                     <ul style="list-style: none; padding-left: 0;">
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <li>
+                                        <asp:HyperLink ID="hypLink" runat="server" NavigateUrl='<%# Eval("Url") %>' Text='<%# Eval("FileName") %>' Target="_blank" />
+                                    </li>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    </ul>
+                                    <h4>URL in Text Format:</h4>
+                                    <asp:Literal ID="litRawLinks" runat="server" />
+                                </FooterTemplate>
+                            </asp:Repeater>
                         </div>
                         <br />
-                        <asp:Button ID="btnDownloadAll" runat="server" Text="Download All" Visible="false" OnClientClick="downloadAll()" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnDownloadAll" runat="server" Text="Download All" Visible="false" OnClientClick="downloadAll(); return false;" CssClass="btn btn-primary" />
                     </div>
 
                 </div>
