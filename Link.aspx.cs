@@ -396,11 +396,7 @@ namespace ipsw
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
 
-<<<<<<< Updated upstream
-            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersionOTA.SelectedItem.ToString() + "</b>";
-=======
-            lblSelectionComment.Text = "You have selected OTA <b>" + HttpUtility.HtmlEncode(rblOptions.SelectedItem.ToString()) + " " + HttpUtility.HtmlEncode(ddlVersionOTA.SelectedItem.ToString());
->>>>>>> Stashed changes
+            lblSelectionComment.Text = "You have selected OTA <b>" + rblOptions.SelectedItem.ToString() + " " + ddlVersionOTA.SelectedItem.ToString();
             btnRetrieve.Text = "Retrieve";
             btnRetrieve.Visible = true;
 
