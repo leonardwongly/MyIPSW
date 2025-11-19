@@ -14,7 +14,7 @@ namespace ipsw
     {
         private static readonly HttpClient client = new HttpClient();
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected async void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
@@ -35,7 +35,7 @@ namespace ipsw
                     ddlVersion.Visible = false;
                     ddlVersionOTA.Visible = false;
 
-                    string myJSON = client.GetStringAsync("https://api.ipsw.me/v4/devices").Result;
+                    string myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/devices");
 
                     dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
                     for (int i = 0; i < jsonObj.Count; i++)
@@ -239,14 +239,14 @@ namespace ipsw
             }
         }
 
-        protected void btnRetrieve_Click(object sender, EventArgs e)
+        protected async void btnRetrieve_Click(object sender, EventArgs e)
         {
             try
             {
                 if (rblOptions.SelectedItem.Value.Equals("Version"))
                 {
                     string version = ddlVersion.SelectedItem.ToString();
-                    string versionJSON = client.GetStringAsync("https://api.ipsw.me/v4/ipsw/" + version).Result;
+                    string versionJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ipsw/" + version);
                     dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
                     double fileSizeGB = 0.00;
                     double originalFileSize = 0.00;
@@ -285,7 +285,7 @@ namespace ipsw
                 else if (rblOptions.SelectedItem.Value.Equals("Version (OTA)"))
                 {
                     string versionOTA = ddlVersionOTA.SelectedItem.ToString();
-                    string versionOTAJSON = client.GetStringAsync("https://api.ipsw.me/v4/ota/" + versionOTA).Result;
+                    string versionOTAJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ota/" + versionOTA);
                     dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
                     double fileSizeGB = 0.00;
                     double originalFileSize = 0.00;
@@ -321,11 +321,11 @@ namespace ipsw
 
                     if (firmwareType.Equals("Official"))
                     {
-                        myJSON = client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw").Result;
+                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw");
                     }
                     else if (firmwareType.Equals("OTA"))
                     {
-                        myJSON = client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ota").Result;
+                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
                     }
 
                     dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
