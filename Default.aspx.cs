@@ -1,20 +1,14 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net.Http;
 
 namespace ipsw
 {
     public partial class Default : System.Web.UI.Page
     {
-        private static readonly HttpClient client = new HttpClient();
-
         protected async void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -34,7 +28,7 @@ namespace ipsw
                     ddlVersion.Visible = false;
                     ddlVersionOTA.Visible = false;
 
-                    string myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/devices");
+                    string myJSON = await IpswApiCache.GetDevicesJsonAsync();
 
                     dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
                     for (int i = 0; i < jsonObj.Count; i++)
@@ -495,10 +489,13 @@ namespace ipsw
         {
             try
             {
+                tblData.Rows.Clear();
+                tblData.BorderStyle = BorderStyle.Solid;
+
                 if (rblOptions.SelectedItem.Value.Equals("Version"))
                 {
                     string version = ddlVersion.SelectedItem.ToString();
-                    string versionJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ipsw/" + version);
+                    string versionJSON = await IpswApiCache.GetIpswByVersionJsonAsync(version);
                     dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
                     TableHeaderRow thrVersion = new TableHeaderRow();
                     TableHeaderCell tableHeaderIdentifier = new TableHeaderCell();
@@ -552,8 +549,8 @@ namespace ipsw
                         hyperIdentifier.Text = HttpUtility.HtmlEncode(identifier) + "<br/>";
                         hyperBuildID.Text = HttpUtility.HtmlEncode(buildID) + "<br/>";
                         hyperURL.Text = HttpUtility.HtmlEncode(url) + "<br/>";
-                        double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                        hyperFileSize.Text = fileSizeGB.ToString("0.##") + " GB";
+                        var fileSizeBytes = IpswUtilities.ParseFileSizeBytes(fileSize);
+                        hyperFileSize.Text = IpswUtilities.FormatGigabytes(fileSizeBytes);
                         if (!(releaseDate is null))
                         {
                             hyperReleaseDate.Text = HttpUtility.HtmlEncode(releaseDate);
@@ -566,9 +563,7 @@ namespace ipsw
 
                         hyperURL.NavigateUrl = url;
 
-                        string[] links = url.Split('/');
-                        int linkInt = links.Length - 1;
-                        hyperURL.Text = HttpUtility.HtmlEncode(links[linkInt]) + "<br/>";
+                        hyperURL.Text = HttpUtility.HtmlEncode(IpswUtilities.GetFileNameFromUrl(url)) + "<br/>";
                         if (signed == "True")
                         {
                             hyperSigned.Text = "Yes";
@@ -583,8 +578,6 @@ namespace ipsw
                             hyperSigned.ForeColor = Color.Red;
                             hyperSigned.Font.Size = 14;
                         }
-
-                        tblData.BorderStyle = BorderStyle.Solid;
 
                         TableRow tr = new TableRow();
                         TableCell tdIdentifier = new TableCell();
@@ -614,7 +607,7 @@ namespace ipsw
                 else if (rblOptions.SelectedItem.Value.Equals("Version (OTA)"))
                 {
                     string versionOTA = ddlVersionOTA.SelectedItem.ToString();
-                    string versionOTAJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ota/" + versionOTA);
+                    string versionOTAJSON = await IpswApiCache.GetOtaByVersionJsonAsync(versionOTA);
                     dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
                     TableHeaderRow thrVersionOTA = new TableHeaderRow();
                     TableHeaderCell tableHeaderIdentifierOTA = new TableHeaderCell();
@@ -663,8 +656,8 @@ namespace ipsw
                         hyperIdentifierOTA.Text = HttpUtility.HtmlEncode(identifier) + "<br/>";
                         hyperBuildIDOTA.Text = HttpUtility.HtmlEncode(buildID) + "<br/>";
                         hyperURLOTA.Text = HttpUtility.HtmlEncode(url) + "<br/>";
-                        double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                        hyperFileSizeOTA.Text = fileSizeGB.ToString("0.##") + " GB";
+                        var fileSizeBytes = IpswUtilities.ParseFileSizeBytes(fileSize);
+                        hyperFileSizeOTA.Text = IpswUtilities.FormatGigabytes(fileSizeBytes);
                         if (!(releaseDate is null))
                         {
                             hyperReleaseDateOTA.Text = HttpUtility.HtmlEncode(releaseDate);
@@ -677,9 +670,7 @@ namespace ipsw
 
                         hyperURLOTA.NavigateUrl = url;
 
-                        string[] links = url.Split('/');
-                        int linkInt = links.Length - 1;
-                        hyperURLOTA.Text = HttpUtility.HtmlEncode(links[linkInt]) + "<br/>";
+                        hyperURLOTA.Text = HttpUtility.HtmlEncode(IpswUtilities.GetFileNameFromUrl(url)) + "<br/>";
                         if (signedOTA == "True")
                         {
                             hyperSignedOTA.Text = "Yes";
@@ -694,8 +685,6 @@ namespace ipsw
                             hyperSignedOTA.ForeColor = Color.Red;
                             hyperSignedOTA.Font.Size = 14;
                         }
-
-                        tblData.BorderStyle = BorderStyle.Solid;
 
                         TableRow tr = new TableRow();
                         TableCell tdIdentifierOTA = new TableCell();
@@ -731,11 +720,11 @@ namespace ipsw
 
                     if (firmwareType.Equals("Official"))
                     {
-                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw");
+                        myJSON = await IpswApiCache.GetDeviceFirmwareJsonAsync(identifier, "ipsw");
                     }
                     else if (firmwareType.Equals("OTA"))
                     {
-                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
+                        myJSON = await IpswApiCache.GetDeviceFirmwareJsonAsync(identifier, "ota");
                     }
 
 
@@ -784,13 +773,11 @@ namespace ipsw
                         hyp.NavigateUrl = url;
 
                         hypFileSize.ID = "hypFileSize" + i;
-                        double fileSizeGB = Double.Parse(fileSize) / 1024 / 1024 / 1024;
-                        hypFileSize.Text = fileSizeGB.ToString("0.##") + " GB";
+                        var fileSizeBytes = IpswUtilities.ParseFileSizeBytes(fileSize);
+                        hypFileSize.Text = IpswUtilities.FormatGigabytes(fileSizeBytes);
 
 
-                        string[] links = url.Split('/');
-                        int linkInt = links.Length - 1;
-                        hyp.Text = HttpUtility.HtmlEncode(links[linkInt]) + "<br/>";
+                        hyp.Text = HttpUtility.HtmlEncode(IpswUtilities.GetFileNameFromUrl(url)) + "<br/>";
 
                         hypDateReleased.ID = "hypDateReleased" + i;
                         if (!dateReleased.Equals(""))
@@ -820,8 +807,6 @@ namespace ipsw
                             hypSigned.ForeColor = Color.Red;
                             hypSigned.Font.Size = 14;
                         }
-
-                        tblData.BorderStyle = BorderStyle.Solid;
 
                         TableRow tr = new TableRow();
                         TableCell tdName = new TableCell();

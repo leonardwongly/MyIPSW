@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "dgSpecHash": "4KmJGbEdLW8=",
+  "success": true,
+  "projectFilePath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
+  "expectedPackageFiles": [
+    "/Users/leonardwongly/.nuget/packages/microsoft.applicationinsights/2.21.0/microsoft.applicationinsights.2.21.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.codecoverage/17.9.0/microsoft.codecoverage.17.9.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.net.test.sdk/17.9.0/microsoft.net.test.sdk.17.9.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.3/microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.netframework.referenceassemblies.net481/1.0.3/microsoft.netframework.referenceassemblies.net481.1.0.3.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testing.extensions.telemetry/1.0.0/microsoft.testing.extensions.telemetry.1.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testing.extensions.trxreport.abstractions/1.0.0/microsoft.testing.extensions.trxreport.abstractions.1.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testing.extensions.vstestbridge/1.0.0/microsoft.testing.extensions.vstestbridge.1.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testing.platform/1.0.0/microsoft.testing.platform.1.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testing.platform.msbuild/1.0.0/microsoft.testing.platform.msbuild.1.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/microsoft.testplatform.objectmodel/17.5.0/microsoft.testplatform.objectmodel.17.5.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/mstest.testadapter/3.2.0/mstest.testadapter.3.2.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/mstest.testframework/3.2.0/mstest.testframework.3.2.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/nuget.frameworks/5.11.0/nuget.frameworks.5.11.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.collections.immutable/1.5.0/system.collections.immutable.1.5.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.diagnostics.diagnosticsource/5.0.0/system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512",
+    "/Users/leonardwongly/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

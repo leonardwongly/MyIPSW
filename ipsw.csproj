@@ -61,6 +61,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Net.Http" />
@@ -117,6 +118,8 @@
     <Compile Include="Link.aspx.designer.cs">
       <DependentUpon>Link.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IpswApiCache.cs" />
+    <Compile Include="IpswUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

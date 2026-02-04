@@ -326,7 +326,7 @@
                 <div class="col-12">
                     <div class="card step-card results-table">
                         <div class="card-body p-0">
-                            <asp:Table ID="tblData" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"
+                            <asp:Table ID="tblData" runat="server" EnableViewState="false" BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"
                                 CellPadding="3" CellSpacing="3" GridLines="Both" CssClass="table table-hover align-middle">
                             </asp:Table>
                         </div>

@@ -1,9 +1,7 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,8 +10,6 @@ namespace ipsw
 {
     public partial class Link : System.Web.UI.Page
     {
-        private static readonly HttpClient client = new HttpClient();
-
         protected async void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,7 +31,7 @@ namespace ipsw
                     ddlVersion.Visible = false;
                     ddlVersionOTA.Visible = false;
 
-                    string myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/devices");
+                    string myJSON = await IpswApiCache.GetDevicesJsonAsync();
 
                     dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
                     for (int i = 0; i < jsonObj.Count; i++)
@@ -94,6 +90,7 @@ namespace ipsw
             btnDownloadAll.Visible = false; 
             tbData.Visible = false;
             tbData.Text = "";
+            listOfLinks.Text = "";
             if (rblOptions.SelectedItem.ToString().Equals("Official"))
             {
                 lblStep2.Visible = true;
@@ -187,6 +184,7 @@ namespace ipsw
         {
             tbData.Visible = false;
             tbData.Text = "";
+            listOfLinks.Text = "";
             
             // Reset other dropdowns
             if (ddl != ddliPhone) ddliPhone.SelectedIndex = 0;
@@ -243,12 +241,15 @@ namespace ipsw
         {
             try
             {
+                tbData.Text = "";
+                listOfLinks.Text = "";
+                btnDownloadAll.Visible = false;
+
                 if (rblOptions.SelectedItem.Value.Equals("Version"))
                 {
                     string version = ddlVersion.SelectedItem.ToString();
-                    string versionJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ipsw/" + version);
+                    string versionJSON = await IpswApiCache.GetIpswByVersionJsonAsync(version);
                     dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJSON);
-                    double fileSizeGB = 0.00;
                     double originalFileSize = 0.00;
                     Dictionary<string, string> urlArray = new Dictionary<string, string>();
                     for (int i = 0; i < jsonVersionObj.Count; i++)
@@ -261,57 +262,61 @@ namespace ipsw
                         }
                     }
 
+                    var htmlBuilder = new StringBuilder();
+                    var listBuilder = new StringBuilder();
+
                     foreach (KeyValuePair<string, string> item in urlArray)
                     {
-                        string[] urlFullTitle = item.Key.ToString().Split('/');
-                        string urlTitle = urlFullTitle[urlFullTitle.Length - 1];
+                        string urlTitle = IpswUtilities.GetFileNameFromUrl(item.Key);
 
-                        tbData.Text += "<a href=\"" + HttpUtility.HtmlAttributeEncode(item.Key) + "\" target=\"_blank\">" + HttpUtility.HtmlEncode(urlTitle) + "</a><br/>";
-                        listOfLinks.Text += HttpUtility.HtmlEncode(item.Key) + ";";
-                        originalFileSize += Double.Parse(item.Value);
+                        htmlBuilder.Append("<a href=\"")
+                            .Append(HttpUtility.HtmlAttributeEncode(item.Key))
+                            .Append("\" target=\"_blank\">")
+                            .Append(HttpUtility.HtmlEncode(urlTitle))
+                            .Append("</a><br/>");
+                        listBuilder.Append(HttpUtility.HtmlEncode(item.Key)).Append(";");
+                        originalFileSize += IpswUtilities.ParseFileSizeBytes(item.Value);
                     }
-                    
-                    tbData.Text += "<br/><br/><h4>URL in Text Format</h4><br/>";
-                
+
+                    htmlBuilder.Append("<br/><br/><h4>URL in Text Format</h4><br/>");
+
                     foreach (KeyValuePair<string, string> item in urlArray)
                     {
-                        tbData.Text += HttpUtility.HtmlEncode(item.Key) + "<br/>";
+                        htmlBuilder.Append(HttpUtility.HtmlEncode(item.Key)).Append("<br/>");
                     }
 
-                    fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
+                    tbData.Text = htmlBuilder.ToString();
+                    listOfLinks.Text = listBuilder.ToString();
                     lblSelectionComment.Text = "<br/>There are " + urlArray.Count +
-                                               " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
+                                               " Files<br/>The Total File Size are " + IpswUtilities.FormatGigabytes(originalFileSize);
                 }
                 else if (rblOptions.SelectedItem.Value.Equals("Version (OTA)"))
                 {
                     string versionOTA = ddlVersionOTA.SelectedItem.ToString();
-                    string versionOTAJSON = await client.GetStringAsync("https://api.ipsw.me/v4/ota/" + versionOTA);
+                    string versionOTAJSON = await IpswApiCache.GetOtaByVersionJsonAsync(versionOTA);
                     dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOTAJSON);
-                    double fileSizeGB = 0.00;
                     double originalFileSize = 0.00;
-                    ArrayList otaLinks = new ArrayList();
-                    ArrayList otaFS = new ArrayList();
+                    Dictionary<string, string> otaFiles = new Dictionary<string, string>();
                     for (int i = 0; i < jsonVersionOTAObj.Count; i++)
                     {
-                        if (!otaLinks.Contains(jsonVersionOTAObj[i]["url"]))
+                        string url = jsonVersionOTAObj[i]["url"];
+                        string fileSize = jsonVersionOTAObj[i]["filesize"];
+                        if (!otaFiles.ContainsKey(url))
                         {
-                            otaLinks.Add(jsonVersionOTAObj[i]["url"]);
-                            otaFS.Add(jsonVersionOTAObj[i]["filesize"]);
+                            otaFiles.Add(url, fileSize);
                         }
                     }
 
-                    for (int j = 0; j < otaLinks.Count; j++)
+                    var htmlBuilder = new StringBuilder();
+                    foreach (KeyValuePair<string, string> item in otaFiles)
                     {
-                        string url = otaLinks[j].ToString();
-                        string fileSize = otaFS[j].ToString();
-
-                        tbData.Text += HttpUtility.HtmlEncode(url) + "<br/>";
-                        originalFileSize += Double.Parse(fileSize);
+                        htmlBuilder.Append(HttpUtility.HtmlEncode(item.Key)).Append("<br/>");
+                        originalFileSize += IpswUtilities.ParseFileSizeBytes(item.Value);
                     }
 
-                    fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                    lblSelectionComment.Text = "<br/>There are " + otaLinks.Count +
-                                               " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
+                    tbData.Text = htmlBuilder.ToString();
+                    lblSelectionComment.Text = "<br/>There are " + otaFiles.Count +
+                                               " Files<br/>The Total File Size are " + IpswUtilities.FormatGigabytes(originalFileSize);
                 }
                 else
                 {
@@ -321,36 +326,33 @@ namespace ipsw
 
                     if (firmwareType.Equals("Official"))
                     {
-                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ipsw");
+                        myJSON = await IpswApiCache.GetDeviceFirmwareJsonAsync(identifier, "ipsw");
                     }
                     else if (firmwareType.Equals("OTA"))
                     {
-                        myJSON = await client.GetStringAsync("https://api.ipsw.me/v4/device/" + identifier + "?type=ota");
+                        myJSON = await IpswApiCache.GetDeviceFirmwareJsonAsync(identifier, "ota");
                     }
 
                     dynamic jsonObj = JsonConvert.DeserializeObject(myJSON);
-                    double fileSizeGB = 0.00;
                     double originalFileSize = 0.00;
-                    ArrayList otaLinks = new ArrayList();
-                    ArrayList otaFS = new ArrayList();
+                    var firmwareFiles = new List<KeyValuePair<string, string>>();
                     for (int i = 0; i < jsonObj["firmwares"].Count; i++)
                     {
-                        otaLinks.Add(jsonObj["firmwares"][i]["url"]);
-                        otaFS.Add(jsonObj["firmwares"][i]["filesize"]);
+                        firmwareFiles.Add(new KeyValuePair<string, string>(
+                            jsonObj["firmwares"][i]["url"].ToString(),
+                            jsonObj["firmwares"][i]["filesize"].ToString()));
                     }
 
-                    for (int j = 0; j < otaLinks.Count; j++)
+                    var htmlBuilder = new StringBuilder();
+                    foreach (KeyValuePair<string, string> item in firmwareFiles)
                     {
-                        string url = otaLinks[j].ToString();
-                        string fileSize = otaFS[j].ToString();
-
-                        tbData.Text += HttpUtility.HtmlEncode(url) + "<br/>";
-                        originalFileSize += Double.Parse(fileSize);
+                        htmlBuilder.Append(HttpUtility.HtmlEncode(item.Key)).Append("<br/>");
+                        originalFileSize += IpswUtilities.ParseFileSizeBytes(item.Value);
                     }
 
-                    fileSizeGB = originalFileSize / 1024 / 1024 / 1024;
-                    lblSelectionComment.Text = "<br/>There are " + otaLinks.Count +
-                                               " Files<br/>The Total File Size are " + fileSizeGB.ToString("0.##") + " GB";
+                    tbData.Text = htmlBuilder.ToString();
+                    lblSelectionComment.Text = "<br/>There are " + firmwareFiles.Count +
+                                               " Files<br/>The Total File Size are " + IpswUtilities.FormatGigabytes(originalFileSize);
                 }
                 tbData.Visible = true;
                 btnDownloadAll.Visible = true;
@@ -365,6 +367,7 @@ namespace ipsw
         {
             tbData.Visible = false;
             tbData.Text = "";
+            listOfLinks.Text = "";
             lblSelection.Text = HttpUtility.HtmlEncode(ddlVersion.SelectedValue);
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;
@@ -392,6 +395,7 @@ namespace ipsw
         {
             tbData.Visible = false;
             tbData.Text = "";
+            listOfLinks.Text = "";
             lblSelection.Text = HttpUtility.HtmlEncode(ddlVersionOTA.SelectedValue);
             lblSelection.Font.Bold = true;
             lblSelection.Font.Size = 15;

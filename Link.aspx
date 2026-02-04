@@ -343,14 +343,14 @@
                                 <asp:Button ID="btnDownloadAll" runat="server" Text="Download All" Visible="false"
                                     OnClientClick="downloadAll()" CssClass="btn btn-outline-primary btn-lg" />
                             </div>
-                            <asp:Label ID="tbData" runat="server" Visible="false"
+                            <asp:Label ID="tbData" runat="server" Visible="false" EnableViewState="false"
                                 Style="text-align: left; display: block;"></asp:Label>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-        <asp:Label ID="listOfLinks" runat="server" CssClass="hidden"></asp:Label>
+        <asp:Label ID="listOfLinks" runat="server" CssClass="hidden" EnableViewState="false"></asp:Label>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
