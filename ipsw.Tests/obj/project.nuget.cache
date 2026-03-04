@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4KmJGbEdLW8=",
+  "dgSpecHash": "9d9rgQOp0O4=",
   "success": true,
   "projectFilePath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
   "expectedPackageFiles": [
@@ -26,5 +26,15 @@
     "/Users/leonardwongly/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512",
     "/Users/leonardwongly/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

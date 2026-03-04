@@ -71,7 +71,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net481": {
@@ -96,7 +96,7 @@
               "autoReferenced": true
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/11.0.100-preview.1.26104.118/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -101,9 +101,12 @@
     <Content Include="favicon\ms-icon-310x310.png" />
     <Content Include="favicon\ms-icon-70x70.png" />
     <Content Include="Link.aspx" />
+    <Content Include="Telemetry.ashx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirmwareQueryService.cs" />
+    <Compile Include="FirmwareRecord.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -120,7 +123,14 @@
     </Compile>
     <Compile Include="IpswApiCache.cs" />
     <Compile Include="IpswUtilities.cs" />
+    <Compile Include="SelectionState.cs" />
+    <Compile Include="SelectionStateValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telemetry.ashx.cs">
+      <DependentUpon>Telemetry.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="UiTelemetryEvent.cs" />
+    <Compile Include="VersionData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon\manifest.json" />

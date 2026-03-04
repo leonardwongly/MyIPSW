@@ -9,6 +9,7 @@ namespace ipsw.Tests
         [DataTestMethod]
         [DataRow("https://example.com/path/file.ipsw", "file.ipsw")]
         [DataRow("file.ipsw", "file.ipsw")]
+        [DataRow("/file.ipsw", "file.ipsw")]
         [DataRow("", "")]
         [DataRow(null, "")]
         public void GetFileNameFromUrl_ReturnsLastSegment(string input, string expected)
@@ -42,10 +43,13 @@ namespace ipsw.Tests
         public void ParseFileSizeBytes_RejectsInvalidNumbers()
         {
             Assert.ThrowsException<FormatException>(() => IpswUtilities.ParseFileSizeBytes("1,024"));
+            Assert.ThrowsException<FormatException>(() => IpswUtilities.ParseFileSizeBytes(string.Empty));
+            Assert.ThrowsException<FormatException>(() => IpswUtilities.ParseFileSizeBytes(null));
         }
 
         [DataTestMethod]
         [DataRow(1073741824d, "1 GB")]
+        [DataRow(1610612736d, "1.5 GB")]
         [DataRow(0d, "0 GB")]
         public void FormatGigabytes_FormatsInvariant(double bytes, string expected)
         {
