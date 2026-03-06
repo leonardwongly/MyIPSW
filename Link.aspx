@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Link.aspx.cs" Inherits="ipsw.Link" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head runat="server">
     <meta charset="utf-8" />
@@ -13,9 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e955a12c2d2043568d3806c104d546e1"}'></script>
-    <!-- End Cloudflare Web Analytics -->
     <!--- Favicon --->
     <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png" />
@@ -185,15 +182,13 @@
                             <asp:Repeater ID="rptLinks" runat="server" Visible="false">
                                 <HeaderTemplate>
                                      <h4>Download Links:</h4>
-                                     <ul style="list-style: none; padding-left: 0;">
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <li>
+                                    <div class="mb-2">
                                         <asp:HyperLink ID="hypLink" runat="server" NavigateUrl='<%# Eval("Url") %>' Text='<%# Eval("FileName") %>' Target="_blank" />
-                                    </li>
+                                    </div>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    </ul>
                                     <h4>URL in Text Format:</h4>
                                     <asp:Literal ID="litRawLinks" runat="server" />
                                 </FooterTemplate>
