@@ -1,6 +1,6 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -19,13 +19,22 @@ namespace ipsw
             {
                 get
                 {
-                    if (string.IsNullOrEmpty(Url))
+                    if (string.IsNullOrWhiteSpace(Url))
                     {
                         return string.Empty;
                     }
 
-                    string[] parts = Url.Split('/');
-                    return parts[parts.Length - 1];
+                    Uri uri;
+                    if (Uri.TryCreate(Url, UriKind.Absolute, out uri))
+                    {
+                        string fileName = Path.GetFileName(uri.AbsolutePath);
+                        if (!string.IsNullOrEmpty(fileName))
+                        {
+                            return fileName;
+                        }
+                    }
+
+                    return Url;
                 }
             }
         }
@@ -70,34 +79,7 @@ namespace ipsw
                 return;
             }
 
-            if (!TryDownloadString($"https://api.ipsw.me/v4/ipsw/{version}", out string versionJson))
-            {
-                return;
-            }
-
-            dynamic jsonVersionObj = JsonConvert.DeserializeObject(versionJson);
-            Dictionary<string, string> urlDictionary = new Dictionary<string, string>();
-            double totalBytes = 0;
-
-            for (int i = 0; i < jsonVersionObj.Count; i++)
-            {
-                string url = jsonVersionObj[i]["url"];
-                string fileSize = jsonVersionObj[i]["filesize"];
-                if (!urlDictionary.ContainsKey(url))
-                {
-                    urlDictionary.Add(url, fileSize);
-                }
-            }
-
-            foreach (KeyValuePair<string, string> item in urlDictionary)
-            {
-                if (double.TryParse(item.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double bytes))
-                {
-                    totalBytes += bytes;
-                }
-            }
-
-            DisplayLinks(urlDictionary.Keys.ToList(), totalBytes);
+            DisplayAggregatedLinks($"https://api.ipsw.me/v4/ipsw/{version}", FirmwareAggregationMode.VersionIpsw);
         }
 
         private void HandleVersionOtaLinks()
@@ -108,34 +90,7 @@ namespace ipsw
                 return;
             }
 
-            if (!TryDownloadString($"https://api.ipsw.me/v4/ota/{versionOTA}", out string versionOtaJson))
-            {
-                return;
-            }
-
-            dynamic jsonVersionOTAObj = JsonConvert.DeserializeObject(versionOtaJson);
-            Dictionary<string, string> urlDictionary = new Dictionary<string, string>();
-            double totalBytes = 0;
-
-            for (int i = 0; i < jsonVersionOTAObj.Count; i++)
-            {
-                string url = jsonVersionOTAObj[i]["url"];
-                string fileSize = jsonVersionOTAObj[i]["filesize"];
-                if (!urlDictionary.ContainsKey(url))
-                {
-                    urlDictionary.Add(url, fileSize);
-                }
-            }
-
-            foreach (KeyValuePair<string, string> item in urlDictionary)
-            {
-                if (double.TryParse(item.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out double bytes))
-                {
-                    totalBytes += bytes;
-                }
-            }
-
-            DisplayLinks(urlDictionary.Keys.ToList(), totalBytes);
+            DisplayAggregatedLinks($"https://api.ipsw.me/v4/ota/{versionOTA}", FirmwareAggregationMode.VersionOta);
         }
 
         private void HandleDeviceLinks()
@@ -148,34 +103,25 @@ namespace ipsw
             }
 
             string endpointType = firmwareType.Equals("Official", StringComparison.OrdinalIgnoreCase) ? "ipsw" : "ota";
-            if (!TryDownloadString($"https://api.ipsw.me/v4/device/{identifier}?type={endpointType}", out string firmwareJson))
+            DisplayAggregatedLinks($"https://api.ipsw.me/v4/device/{identifier}?type={endpointType}", FirmwareAggregationMode.Device);
+        }
+
+        private void DisplayAggregatedLinks(string endpointUrl, FirmwareAggregationMode mode)
+        {
+            if (!TryDownloadString(endpointUrl, out string json))
             {
                 return;
             }
 
-            dynamic jsonObj = JsonConvert.DeserializeObject(firmwareJson);
-            List<string> links = new List<string>();
-            double totalBytes = 0;
-
-            for (int i = 0; i < jsonObj["firmwares"].Count; i++)
-            {
-                string url = jsonObj["firmwares"][i]["url"];
-                string fileSize = jsonObj["firmwares"][i]["filesize"];
-                links.Add(url);
-                if (double.TryParse(fileSize, NumberStyles.Any, CultureInfo.InvariantCulture, out double bytes))
-                {
-                    totalBytes += bytes;
-                }
-            }
-
-            DisplayLinks(links, totalBytes);
+            FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(json, mode);
+            DisplayLinks(result);
         }
 
-        private void DisplayLinks(IReadOnlyCollection<string> urls, double totalBytes)
+        private void DisplayLinks(FirmwareAggregationResult result)
         {
             listOfLinks.Text = string.Empty;
 
-            if (urls == null || urls.Count == 0)
+            if (result == null || result.Count == 0)
             {
                 SelectionCommentLabel.Text += "<br/>No files found.";
                 return;
@@ -185,14 +131,14 @@ namespace ipsw
             StringBuilder rawLinksBuilder = new StringBuilder();
             StringBuilder downloadBuilder = new StringBuilder();
 
-            foreach (string url in urls)
+            foreach (FirmwareLinkInfo link in result.Links)
             {
-                links.Add(new FirmwareLink { Url = url });
-                rawLinksBuilder.Append(HttpUtility.HtmlEncode(url) + "<br/>");
-                downloadBuilder.Append(url + ";");
+                links.Add(new FirmwareLink { Url = link.Url });
+                rawLinksBuilder.Append(HttpUtility.HtmlEncode(link.Url)).Append("<br/>");
+                downloadBuilder.Append(link.Url).Append(';');
             }
 
-            double fileSizeGB = totalBytes / 1024 / 1024 / 1024;
+            double fileSizeGB = result.TotalSizeBytes / 1024d / 1024d / 1024d;
             SelectionCommentLabel.Text += $"<br/>There are {links.Count} Files<br/>The Total File Size are {fileSizeGB.ToString("0.##", CultureInfo.InvariantCulture)} GB";
 
             BindLinksToRepeater(links, rawLinksBuilder.ToString(), downloadBuilder.ToString());

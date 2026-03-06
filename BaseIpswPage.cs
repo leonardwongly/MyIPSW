@@ -483,7 +483,7 @@ namespace ipsw
         {
             if (_controlCache.TryGetValue(id, out Control cachedControl))
             {
-                return cachedControl as TControl;
+                return EnsureControlType<TControl>(cachedControl, id);
             }
 
             Control control = FindControlRecursive(this, id);
@@ -492,8 +492,9 @@ namespace ipsw
                 throw new InvalidOperationException($"Unable to locate control with ID '{id}'.");
             }
 
-            _controlCache[id] = control;
-            return control as TControl;
+            TControl typedControl = EnsureControlType<TControl>(control, id);
+            _controlCache[id] = typedControl;
+            return typedControl;
         }
 
         private Control FindControlRecursive(Control root, string id)
@@ -519,6 +520,19 @@ namespace ipsw
             }
 
             return null;
+        }
+
+        private static TControl EnsureControlType<TControl>(Control control, string id) where TControl : Control
+        {
+            TControl typedControl = control as TControl;
+            if (typedControl == null)
+            {
+                string actualType = control?.GetType().FullName ?? "null";
+                throw new InvalidOperationException(
+                    $"Control '{id}' was found, but it is '{actualType}' instead of '{typeof(TControl).FullName}'.");
+            }
+
+            return typedControl;
         }
     }
 }
