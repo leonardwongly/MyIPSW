@@ -1,17 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net481</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\\ipsw.csproj" />
+    <Compile Include="FirmwareAggregationHelperTests.cs" />
+    <Compile Include="FirmwareQueryServiceTests.cs" />
+    <Compile Include="IpswUtilitiesTests.cs" />
+    <Compile Include="SelectionStateValidatorTests.cs" />
+    <Compile Include="UiTelemetryEventTests.cs" />
+    <Compile Include="..\App_Code\FirmwareAggregationHelper.cs" Link="Shared\FirmwareAggregationHelper.cs" />
+    <Compile Include="..\FirmwareQueryService.cs" Link="Shared\FirmwareQueryService.cs" />
+    <Compile Include="..\FirmwareRecord.cs" Link="Shared\FirmwareRecord.cs" />
+    <Compile Include="..\IpswApiCache.cs" Link="Shared\IpswApiCache.cs" />
+    <Compile Include="..\IpswUtilities.cs" Link="Shared\IpswUtilities.cs" />
+    <Compile Include="..\SelectionState.cs" Link="Shared\SelectionState.cs" />
+    <Compile Include="..\SelectionStateValidator.cs" Link="Shared\SelectionStateValidator.cs" />
+    <Compile Include="..\UiTelemetryEvent.cs" Link="Shared\UiTelemetryEvent.cs" />
+    <Compile Include="..\VersionData.cs" Link="Shared\VersionData.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.2.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.5.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
   </ItemGroup>
 </Project>

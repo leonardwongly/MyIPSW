@@ -105,6 +105,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\FirmwareAggregationHelper.cs" />
     <Compile Include="FirmwareQueryService.cs" />
     <Compile Include="FirmwareRecord.cs" />
     <Compile Include="Default.aspx.cs">
