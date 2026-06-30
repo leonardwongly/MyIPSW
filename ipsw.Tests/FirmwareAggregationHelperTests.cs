@@ -11,9 +11,9 @@ namespace ipsw.Tests
         public void AggregateVersionIpsw_DeduplicatesAndSums()
         {
             const string json = @"[
-  { \"url\": \"https://example.com/fw1.ipsw\", \"filesize\": 1024 },
-  { \"url\": \"https://example.com/fw2.ipsw\", \"filesize\": \"2048\" },
-  { \"url\": \"https://example.com/fw1.ipsw\", \"filesize\": 8192 }
+  { ""url"": ""https://example.com/fw1.ipsw"", ""filesize"": 1024 },
+  { ""url"": ""https://example.com/fw2.ipsw"", ""filesize"": ""2048"" },
+  { ""url"": ""https://example.com/fw1.ipsw"", ""filesize"": 8192 }
 ]";
 
             FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(json, FirmwareAggregationMode.VersionIpsw);
@@ -30,11 +30,11 @@ namespace ipsw.Tests
         public void AggregateDeviceFirmwares_PreservesOrderForFirstOccurrences()
         {
             const string json = @"{
-  \"firmwares\": [
-    { \"url\": \"https://example.com/a\", \"filesize\": 100 },
-    { \"url\": \"https://example.com/b\", \"filesize\": 200 },
-    { \"url\": \"https://example.com/a\", \"filesize\": 300 },
-    { \"url\": \"https://example.com/c\", \"filesize\": 0 }
+  ""firmwares"": [
+    { ""url"": ""https://example.com/a"", ""filesize"": 100 },
+    { ""url"": ""https://example.com/b"", ""filesize"": 200 },
+    { ""url"": ""https://example.com/a"", ""filesize"": 300 },
+    { ""url"": ""https://example.com/c"", ""filesize"": 0 }
   ]
 }";
 
@@ -56,10 +56,10 @@ namespace ipsw.Tests
         public void AggregateVersionOta_IgnoresEmptyEntries()
         {
             const string json = @"[
-  { \"url\": \"https://example.com/ota1\", \"filesize\": 50 },
-  { \"url\": \"\", \"filesize\": 100 },
-  { \"filesize\": 150 },
-  { \"url\": \"https://example.com/ota2\" }
+  { ""url"": ""https://example.com/ota1"", ""filesize"": 50 },
+  { ""url"": """", ""filesize"": 100 },
+  { ""filesize"": 150 },
+  { ""url"": ""https://example.com/ota2"" }
 ]";
 
             FirmwareAggregationResult result = FirmwareAggregationHelper.Aggregate(json, FirmwareAggregationMode.VersionOta);
