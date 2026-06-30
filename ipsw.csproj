@@ -61,8 +61,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -99,10 +101,13 @@
     <Content Include="favicon\ms-icon-310x310.png" />
     <Content Include="favicon\ms-icon-70x70.png" />
     <Content Include="Link.aspx" />
+    <Content Include="Telemetry.ashx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\FirmwareAggregationHelper.cs" />
+    <Compile Include="FirmwareQueryService.cs" />
+    <Compile Include="FirmwareRecord.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -117,7 +122,16 @@
     <Compile Include="Link.aspx.designer.cs">
       <DependentUpon>Link.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IpswApiCache.cs" />
+    <Compile Include="IpswUtilities.cs" />
+    <Compile Include="SelectionState.cs" />
+    <Compile Include="SelectionStateValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telemetry.ashx.cs">
+      <DependentUpon>Telemetry.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="UiTelemetryEvent.cs" />
+    <Compile Include="VersionData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon\manifest.json" />

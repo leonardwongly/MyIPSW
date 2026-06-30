@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj": {}
+  },
+  "projects": {
+    "/Users/leonardwongly/Developer/MyIPSW/ipsw.csproj": {
+      "restore": {
+        "projectUniqueName": "/Users/leonardwongly/Developer/MyIPSW/ipsw.csproj",
+        "projectName": "ipsw",
+        "projectPath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.csproj",
+        "packagesPath": "/Users/leonardwongly/.nuget/packages/",
+        "projectStyle": "PackagesConfig",
+        "UsingMicrosoftNETSdk": false,
+        "configFilePaths": [
+          "/Users/leonardwongly/.nuget/NuGet/NuGet.Config"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net481": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low"
+        },
+        "packagesConfigPath": "/Users/leonardwongly/Developer/MyIPSW/packages.config"
+      },
+      "frameworks": {
+        "net481": {}
+      }
+    },
+    "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
+        "projectName": "ipsw.Tests",
+        "projectPath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/ipsw.Tests.csproj",
+        "packagesPath": "/Users/leonardwongly/.nuget/packages/",
+        "outputPath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/leonardwongly/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net481"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net481": {
+            "targetAlias": "net481",
+            "projectReferences": {
+              "/Users/leonardwongly/Developer/MyIPSW/ipsw.csproj": {
+                "projectPath": "/Users/leonardwongly/Developer/MyIPSW/ipsw.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "11.0.100"
+      },
+      "frameworks": {
+        "net481": {
+          "targetAlias": "net481",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.9.0, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/11.0.100-preview.1.26104.118/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
